@@ -1,5 +1,5 @@
 {
-  "name": "open-locker",
+  "name": "secure-wallet",
   "version": "0.1.0",
   "description": "",
   "main": "",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gauravchl/open-locker.git"
+    "url": "git+https://github.com/gauravchl/secure-wallet.git"
   },
   "author": "Gaurav Chikhale",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gauravchl/open-locker/issues"
+    "url": "https://github.com/gauravchl/secure-wallet/issues"
   },
-  "homepage": "https://github.com/gauravchl/open-locker#readme",
+  "homepage": "https://github.com/gauravchl/secure-wallet#readme",
   "dependencies": {
     "prop-types": "^15.5.10",
     "react": "^15.5.4",

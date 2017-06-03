@@ -1,1 +1,1 @@
-# open-locker
+# secure wallet
