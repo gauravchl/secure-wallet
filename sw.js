@@ -1,5 +1,5 @@
-var APP_PREFIX = 'ANSI-ART'
-var VERSION = 'version_09'
+var APP_PREFIX = 'secure-wallet'
+var VERSION = '0.0.0.1'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   '/secure-wallet/',
@@ -22,7 +22,7 @@ self.addEventListener('fetch', function (e) {
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(URLS)
+      return cache.addAll(URLS).then(function(){self.skipWaiting()})
     })
   )
 })
