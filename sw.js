@@ -1,12 +1,11 @@
 var APP_PREFIX = 'ANSI-ART'
-var VERSION = 'version_01'
+var VERSION = 'version_02'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   './',
   './index.html',
   './main.css',
   './main.js',
-  './favicon.png',
 ]
 
 self.addEventListener('fetch', function (e) {
