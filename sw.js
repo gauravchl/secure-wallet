@@ -21,7 +21,7 @@ self.addEventListener('fetch', function (e) {
 
 // Cache resources
 self.addEventListener('install', function (e) {
-  console.log('sw[install]')
+  console.log('sw[install] v5')
   e.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.addAll(URLS)
