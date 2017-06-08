@@ -11,6 +11,7 @@ var URLS = [
 ]
 
 self.addEventListener('fetch', function (e) {
+  console.log('sw[fetch]')
   e.respondWith(
     caches.match(e.request).then(function (request) {
       return request || fetch(e.request)
@@ -20,6 +21,7 @@ self.addEventListener('fetch', function (e) {
 
 // Cache resources
 self.addEventListener('install', function (e) {
+  console.log('sw[install]')
   e.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.addAll(URLS).then(function(){self.skipWaiting()})
@@ -29,6 +31,7 @@ self.addEventListener('install', function (e) {
 
 // Delete outdated caches
 self.addEventListener('activate', function (e) {
+  console.log('sw[activate]')
   e.waitUntil(
     caches.keys().then(function (keyList) {
       // `keyList` contains all cache names under your username.github.io
