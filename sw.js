@@ -1,5 +1,5 @@
 var APP_PREFIX = 'secure-wallet'
-var VERSION = '0.0.0.2'
+var VERSION = '0.0.0.3'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   '/secure-wallet/',
