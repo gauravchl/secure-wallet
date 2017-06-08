@@ -1,11 +1,11 @@
 {
   "name": "Secure wallet",
-  "short_name": "SW",
+  "short_name": "Secure wallet",
   "orientation": "portrait",
   "theme_color": "#31342F",
   "background_color": "#ffffff",
-  "display": "standalone",
-  "start_url": "./",
+  "display": "fullscreen",
+  "start_url": "index.html",
   "icons": [
     {
       "src": "./android-chrome-192x192.png",
