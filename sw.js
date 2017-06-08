@@ -1,5 +1,5 @@
 var APP_PREFIX = 'secure-wallet'
-var VERSION = '0.0.0.3'
+var VERSION = '0.0.0.4'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   '/secure-wallet/',
@@ -24,7 +24,7 @@ self.addEventListener('install', function (e) {
   console.log('sw[install]')
   e.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(URLS).then(function(){self.skipWaiting()})
+      return cache.addAll(URLS)
     })
   )
 })
