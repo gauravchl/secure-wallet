@@ -1,5 +1,5 @@
 var APP_PREFIX = 'ANSI-ART'
-var VERSION = 'version_07'
+var VERSION = 'version_08'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   '/secure-wallet/',
