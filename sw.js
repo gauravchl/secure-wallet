@@ -2,10 +2,10 @@ var APP_PREFIX = 'ANSI-ART'
 var VERSION = 'version_05'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
-  './',
-  './index.html',
-  './main.css',
-  './main.js',
+  '/secure-wallet/',
+  '/secure-wallet/index.html',
+  '/secure-wallet/main.css',
+  '/secure-wallet/main.js',
 ]
 
 self.addEventListener('fetch', function (e) {
