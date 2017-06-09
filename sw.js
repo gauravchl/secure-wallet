@@ -1,5 +1,5 @@
 const APP_PREFIX = 'secure-wallet'
-const VERSION = '0.0.0.3'
+const VERSION = '0.0.0.4'
 const CACHE_NAME = APP_PREFIX + VERSION
 const URLS = [
   '/secure-wallet/',

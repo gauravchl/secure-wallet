@@ -19,9 +19,7 @@
     <div id='app'></div>
     <script type="text/javascript">
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js', { scope: './' }).then(reg => {
-        setInterval(_ => reg.update(), 3e4)
-      })
+      navigator.serviceWorker.register('./sw.js', { scope: './' }).then(reg => reg.update())
     }
     </script>
     <script src="main.js"></script>
