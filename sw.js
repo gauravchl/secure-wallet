@@ -1,7 +1,7 @@
-var APP_PREFIX = 'secure-wallet'
-var VERSION = '0.0.0.18'
-var CACHE_NAME = APP_PREFIX + VERSION
-var URLS = [
+const APP_PREFIX = 'secure-wallet'
+const VERSION = '0.0.0.18'
+const CACHE_NAME = APP_PREFIX + VERSION
+const URLS = [
   '/secure-wallet/',
   '/secure-wallet/index.html',
   '/secure-wallet/main.css',
