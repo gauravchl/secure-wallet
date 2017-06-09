@@ -1,8 +1,9 @@
 var APP_PREFIX = 'secure-wallet'
-var VERSION = '0.0.0.1'
+var VERSION = '0.0.0.5'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   '/secure-wallet/',
+  '/secure-wallet/images/',
   '/secure-wallet/index.html',
   '/secure-wallet/main.css',
   '/secure-wallet/main.js',
@@ -17,7 +18,7 @@ self.addEventListener('fetch', e => e.respondWith(swFetch(e)))
 async function swFetch(e) {
   console.log('sw[fetch]')
   let request = await caches.match(e.request);
-  return request || fetch(e.request)
+  return request || fetchAndCache(e.request);
 }
 
 
@@ -40,4 +41,12 @@ async function swActivate() {
       return caches.delete(keyList[i])
     }
   }))
+}
+
+
+async function fetchAndCache(request){
+  const res = await fetch(request);
+  const cache = await caches.open(CACHE_NAME);
+  cache.put(request, res.clone());
+  return res;
 }
