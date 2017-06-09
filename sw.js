@@ -1,5 +1,5 @@
 const APP_PREFIX = 'secure-wallet'
-const VERSION = '0.0.0.84'
+const VERSION = '0.0.0.86'
 const CACHE_NAME = APP_PREFIX + VERSION
 const URLS = [
   '/secure-wallet/',
@@ -8,6 +8,7 @@ const URLS = [
   '/secure-wallet/main.js',
   '/secure-wallet/manifest.json',
   '/secure-wallet/images/favicon-16x16.png',
+  '/secure-wallet/sw.js',
 ]
 self.addEventListener('install', e => e.waitUntil(swInstall()))
 self.addEventListener('activate', e => e.waitUntil(swActivate()))
