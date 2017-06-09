@@ -17,13 +17,12 @@
     <script type="text/javascript">
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js', { scope: './' }).then(reg => {
-          setInterval(_ => console.log('Update manually here'), 5000)
         })
       }
     </script>
   </head>
   <body>
-    Hello World
+    Hello World v10
     <div id='app'></div>
     <script src="main.js"></script>
   </body>
