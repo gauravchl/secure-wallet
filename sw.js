@@ -1,5 +1,5 @@
 var APP_PREFIX = 'secure-wallet'
-var VERSION = '0.0.0.16'
+var VERSION = '0.0.0.18'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   '/secure-wallet/',
@@ -27,7 +27,7 @@ async function swInstall() {
   let options = {headers: {'cache-control': 'no-cache'}};
   let requests = URLS.map(url => new Request(url, options))
   await cache.addAll(requests);
-  //await self.skipWaiting();
+  await self.skipWaiting();
 }
 
 
