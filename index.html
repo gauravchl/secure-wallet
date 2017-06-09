@@ -14,16 +14,16 @@
     <meta name="theme-color" content="#31342F">
     <title>Secure wallet</title>
     <link rel="manifest" href="./manifest.json">
-    <script type="text/javascript">
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js', { scope: './' }).then(reg => {
-          setInterval(_ => reg.update(), 3e4)
-        })
-      }
-    </script>
   </head>
   <body>
     <div id='app'></div>
+    <script type="text/javascript">
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js', { scope: './' }).then(reg => {
+        setInterval(_ => reg.update(), 3e4)
+      })
+    }
+    </script>
     <script src="main.js"></script>
   </body>
 </html>
