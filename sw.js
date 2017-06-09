@@ -1,5 +1,5 @@
 var APP_PREFIX = 'secure-wallet'
-var VERSION = '0.0.0.6'
+var VERSION = '0.0.0.1'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   '/secure-wallet/',
@@ -9,45 +9,35 @@ var URLS = [
   '/secure-wallet/manifest.json',
   '/secure-wallet/images/favicon-16x16.png',
 ]
+self.addEventListener('install', e => e.waitUntil(swInstall()))
+self.addEventListener('activate', e => e.waitUntil(swActivate()))
+self.addEventListener('fetch', e => e.respondWith(swFetch(e)))
 
-self.addEventListener('fetch', function (e) {
+
+async function swFetch(e) {
   console.log('sw[fetch]')
-  e.respondWith(
-    caches.match(e.request).then(function (request) {
-      return request || fetch(e.request)
-    })
-  )
-})
+  let request = await caches.match(e.request);
+  return request || fetch(e.request)
+}
 
-// Cache resources
-self.addEventListener('install', function (e) {
-  console.log('sw[install] v5')
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(URLS)
-    })
-  )
-})
 
-// Delete outdated caches
-self.addEventListener('activate', function (e) {
+async function swInstall() {
+  console.log('sw[install]')
+  const cache = await caches.open(CACHE_NAME);
+  await cache.addAll(URLS);
+  await self.skipWaiting();
+}
+
+
+async function swActivate() {
   console.log('sw[activate]')
-  e.waitUntil(
-    caches.keys().then(function (keyList) {
-      // `keyList` contains all cache names under your username.github.io
-      // filter out ones that has this app prefix to create white list
-      var cacheWhitelist = keyList.filter(function (key) {
-        return key.indexOf(APP_PREFIX)
-      })
-      // add current cache name to white list
-      cacheWhitelist.push(CACHE_NAME)
-
-      return Promise.all(keyList.map(function (key, i) {
-        if (cacheWhitelist.indexOf(key) === -1) {
-          console.log('deleting cache : ' + keyList[i] )
-          return caches.delete(keyList[i])
-        }
-      }))
-    })
-  )
-})
+  let keyList = await caches.keys();
+  let cacheWhitelist = keyList.filter(key => key.indexOf(APP_PREFIX));
+  cacheWhitelist.push(CACHE_NAME)
+  return Promise.all(keyList.map(function (key, i) {
+    if (cacheWhitelist.indexOf(key) === -1) {
+      console.log('deleting cache : ' + keyList[i] )
+      return caches.delete(keyList[i])
+    }
+  }))
+}
