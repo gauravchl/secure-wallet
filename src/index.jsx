@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 class App extends React.Component {
   render () {
-    return <p>Secure wallet v0.0.0.7</p>;
+    return <p>Secure wallet v0.0.0.8</p>;
   }
 }
 
