@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { createItem } from 'actions.js'
+import TextField from 'material-ui/TextField';
 
 const Login = (props) => {
   let { onLoginClick, items } = props;
   return (
     <div style={styles.root}>
-      <RaisedButton onTouchTap={onLoginClick} style={styles.btn} label='Login' primary fullWidth={true} />
+      <TextField style={styles.field} hintText="Master key" floatingLabelText="Master key" type="password" fullWidth={true}/>
+      <br/>
+      <br/>
+      <RaisedButton style={styles.field} onTouchTap={onLoginClick}  label='Login' primary fullWidth={true} />
     </div>
   )
 }
@@ -19,7 +22,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  btn: {
+  field: {
     maxWidth: '400px',
     minWidth: 'auto',
     width: '80%'
