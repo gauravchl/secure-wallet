@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/gauravchl/secure-wallet#readme",
   "dependencies": {
+    "material-ui": "^0.18.3",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-tap-event-plugin": "^2.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
