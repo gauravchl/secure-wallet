@@ -17,7 +17,10 @@ config = {
         include: [SRC_DIR],
         loader: 'babel-loader',
         exclude: /node_modules/,
-        query: { presets: [ 'es2015', 'react' ]}
+        query: {
+          presets: [ 'es2015', 'react' ],
+          plugins: [ 'transform-es2015-destructuring', 'transform-object-rest-spread' ]
+        }
       },
     ],
   },
@@ -29,6 +32,9 @@ config = {
     }),
     new webpack.optimize.UglifyJsPlugin(),
   ],
+  resolve: {
+    modules: [ SRC_DIR, path.resolve('./node_modules') ]
+  },
 }
 
 module.exports = [config];

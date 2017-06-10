@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import { createItem } from 'actions.js'
 
 const Login = (props) => {
-
+  let { onLoginClick, items } = props;
   return (
     <div style={styles.root}>
-      <RaisedButton style={styles.btn} label='Login' primary fullWidth={true} />
+      <RaisedButton onTouchTap={onLoginClick} style={styles.btn} label='Login' primary fullWidth={true} />
     </div>
   )
-
 }
 
 const styles = {
@@ -21,7 +21,8 @@ const styles = {
   },
   btn: {
     maxWidth: '400px',
-    minWidth: '400px'
+    minWidth: 'auto',
+    width: '80%'
   }
 
 }
