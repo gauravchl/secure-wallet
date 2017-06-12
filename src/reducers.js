@@ -1,4 +1,5 @@
-import { actionTypes } from './actions.js'
+import { actionTypes } from './actions.js';
+import { REHYDRATE } from 'redux-persist/constants'
 
 const handlers = {
   [actionTypes.CREATE_ITEM]: (state, action) => {
@@ -8,7 +9,11 @@ const handlers = {
   },
   [actionTypes.UPDATE_ITEM]: (state, action) => {
     return // some new state with note updated
-  }
+  },
+  [REHYDRATE]: (state, action) => {
+    const items = action.payload.items || [];
+    return { ...state, items };
+  },
 };
 
 
