@@ -4,17 +4,17 @@ import { login, createLogin, updateLogin } from 'actions/login'
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items || []
+    login: state.login || []
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLoginClick: () => {
+    onLoginClick: (masterKey) => {
       dispatch(login(masterKey))
     },
 
-    onCreateLoginClick: () => {
+    onCreateLoginClick: (masterKey) => {
       dispatch(createLogin(masterKey))
     }
   }

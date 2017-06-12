@@ -7,7 +7,7 @@ const actionTypes = {
 export { actionTypes };
 
 export function login(masterKey) {
-  return { type: actionTypes.CREATE_LOGIN, masterKey }
+  return { type: actionTypes.LOGIN, masterKey }
 }
 
 export function createLogin(masterKey) {

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/gauravchl/secure-wallet#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "material-ui": "^0.18.3",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
@@ -26,7 +27,8 @@
     "react-redux": "^5.0.5",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "redux-persist": "^4.8.0"
+    "redux-persist": "^4.8.0",
+    "redux-persist-transform-filter": "0.0.10"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

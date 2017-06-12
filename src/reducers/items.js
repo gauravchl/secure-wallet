@@ -13,7 +13,7 @@ const handlers = {
   },
   [REHYDRATE]: (state, action) => {
     const items = action.payload.items || [];
-    return { ...state, items };
+    return items || state;
   },
 };
 
