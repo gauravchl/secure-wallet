@@ -1,10 +1,11 @@
-import { actionTypes } from './actions.js';
+import { actionTypes } from 'actions/items';
 import { REHYDRATE } from 'redux-persist/constants'
 
 const handlers = {
   [actionTypes.CREATE_ITEM]: (state, action) => {
     let { items=[], ...others } = state;
     let newState = { ...others, items:  [{ a: 1 }, ...items ]}
+    console.log(newState);
     return newState;
   },
   [actionTypes.UPDATE_ITEM]: (state, action) => {

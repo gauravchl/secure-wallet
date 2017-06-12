@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Login from 'components/login.jsx'
-import { createItem } from 'actions.js'
+import { login, createLogin, updateLogin } from 'actions/login'
 
 const mapStateToProps = (state) => {
   return {
@@ -11,7 +11,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLoginClick: () => {
-      dispatch(createItem())
+      dispatch(login(masterKey))
+    },
+
+    onCreateLoginClick: () => {
+      dispatch(createLogin(masterKey))
     }
   }
 }
