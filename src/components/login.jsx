@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { pink400 } from 'material-ui/styles/colors';
 
 
 
@@ -20,14 +21,15 @@ class Login extends React.Component {
   }
 
   render() {
-    let { onLoginClick, onCreateLoginClick, login } = this.props;
-    let hasMasterKey = login && login.masterKey;
+    let { onLoginClick, onCreateLoginClick, login={}} = this.props;
+    let { masterKey, local } = login;
 
     return (
       <div style={styles.root}>
         <TextField ref={(ref) => this._tf = ref}
           style={styles.field}
           hintText="Master key"
+          errorText={local && local.error}
           floatingLabelText="Master key"
           type="password" fullWidth={true}
         />
@@ -35,14 +37,13 @@ class Login extends React.Component {
         <br/>
         <RaisedButton style={styles.field}
           onTouchTap={this.handleLoginClick}
-          label={hasMasterKey ? 'Login' : 'Add master key to start'}
+          label={ masterKey ? 'Login' : 'Add master key to start'}
           primary fullWidth={true}
           />
       </div>
     )
   }
 }
-
 
 
 
@@ -59,6 +60,5 @@ const styles = {
     minWidth: 'auto',
     width: '80%'
   }
-
 }
 export default Login

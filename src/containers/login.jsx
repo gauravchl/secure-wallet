@@ -4,7 +4,7 @@ import { login, createLogin, updateLogin } from 'actions/login'
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login || []
+    login: state.login,
   }
 }
 

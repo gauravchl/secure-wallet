@@ -6,12 +6,11 @@ import Reducers from 'reducers';
 let store = createStore(Reducers);
 
 // Don;t save login key in localstorage
-const saveSubsetBlacklistFilter = createBlacklistFilter(
-  'login', ['key']
-);
+const loginBlacklistFilter = createBlacklistFilter('login', ['local']);
+const itemsBlacklistFilter = createBlacklistFilter('items', ['local']);
 
 
-persistStore(store, { transforms:[saveSubsetBlacklistFilter]});
+persistStore(store, { transforms:[ loginBlacklistFilter, itemsBlacklistFilter ]});
 
 let unsubscribe = store.subscribe(() =>
   console.log('store - ', store.getState())

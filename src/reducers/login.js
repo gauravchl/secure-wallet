@@ -5,15 +5,21 @@ import bcrypt from 'bcryptjs';
 const handlers = {
   [actionTypes.LOGIN]: (state, action) => {
     let { masterKey } = action;
-    console.log(state)
-    if (!state.masterKey) throw new Error('No login found');
-    let shouldLogin = bcrypt.compareSync(masterKey, state.masterKey);
-    let key = shouldLogin ? bcrypt.hashSync(masterKey + state.masterKey, 10) : null;
-    return { ...state, key }
+    if (!state.masterKey) return throwError(state, 'Master key not found');
+    if (!masterKey) return throwError(state, 'Master key required');
+    let isMasterKeyCorrect = bcrypt.compareSync(masterKey, state.masterKey);
+    if (!isMasterKeyCorrect) return throwError(state, 'Invalid master key');
+    let newState = { ...state, local: {
+      encryptionKey : isMasterKeyCorrect ? bcrypt.hashSync(masterKey + state.masterKey, 10) : null,
+      loggedIn      : true,
+    }};
+    // TODO - call item action using dispatcher to decrypt items
+    return newState
   },
   [actionTypes.CREATE_LOGIN]: (state, action) => {
     let { masterKey } = action;
-    if (state.masterKey) throw new Error('Master key already exist');
+    if (state.masterKey) return throwError(state, 'Master key is already exist');
+    if (!masterKey || !masterKey.trim()) return throwError(state, 'Master key required');
     let hash = bcrypt.hashSync(masterKey, 10)
     return { ...state,  masterKey: hash }
   },
@@ -27,6 +33,10 @@ const handlers = {
   },
 };
 
+
+function throwError(state, error) {
+  return { ...state, local: { ...state.local, error }}
+}
 
 
 const Reducer = (state = {}, action) => {
