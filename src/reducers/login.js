@@ -1,6 +1,9 @@
 import { actionTypes } from 'actions/login';
 import { REHYDRATE } from 'redux-persist/constants';
+import CryptoHelper from 'helper/crypto';
 import bcrypt from 'bcryptjs';
+
+
 
 const handlers = {
   [actionTypes.LOGIN]: (state, action) => {
@@ -9,12 +12,8 @@ const handlers = {
     if (!masterKey) return throwError(state, 'Master key required');
     let isMasterKeyCorrect = bcrypt.compareSync(masterKey, state.masterKey);
     if (!isMasterKeyCorrect) return throwError(state, 'Invalid master key');
-    let newState = { ...state, local: {
-      encryptionKey : isMasterKeyCorrect ? bcrypt.hashSync(masterKey + state.masterKey, 10) : null,
-      loggedIn      : true,
-    }};
-    // TODO - call item action using dispatcher to decrypt items
-    return newState
+    CryptoHelper.setSecretKey(masterKey);
+    return { ...state, local: { loggedIn : true }};
   },
   [actionTypes.CREATE_LOGIN]: (state, action) => {
     let { masterKey } = action;

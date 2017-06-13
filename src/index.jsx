@@ -5,6 +5,7 @@ import { Provider, connect } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Theme from 'theme.js'
+import { decryptItems } from 'actions/wallet';
 import LoginContainer from 'containers/login.jsx'
 import WalletContainer from 'containers/wallet.jsx'
 
@@ -17,11 +18,18 @@ class App extends React.Component {
   }
 
   render () {
-    let { login={}} = this.props;
-    let isLoggedIn = login.local && login.local.loggedIn;
+    let { login={}, wallet={}, dispatch } = this.props;
+    let { loggedIn } = login.local || {};
+    let { decrypted } = wallet.local || {};
+    if (loggedIn && !decrypted) {
+      setTimeout(() => dispatch(decryptItems()), 1)
+      // TODO - show decryptin...
+      return null;
+    }
+
     return (
       <MuiThemeProvider muiTheme={Theme}>
-        { isLoggedIn
+        { loggedIn
           ? <WalletContainer />
           : <LoginContainer />
         }

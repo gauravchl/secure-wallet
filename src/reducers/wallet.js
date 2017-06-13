@@ -1,33 +1,33 @@
 import { actionTypes } from 'actions/wallet';
 import { REHYDRATE } from 'redux-persist/constants';
-import { AES, enc } from 'crypto-js';
+import CryptoHelper from 'helper/crypto';
 
 
 const handlers = {
   [actionTypes.CREATE_ITEM]: (state, action) => {
     let { items=[], ...others } = state;
     let newState = { ...others, items:  [{ a: 1 }, ...items ]}
-    console.log(newState);
     return newState;
   },
   [actionTypes.UPDATE_ITEM]: (state, action) => {
     return // some new state with note updated
   },
-  [actionTypes.DCRYPT]: (state, action) => {
-    let { key } = action;
-    let { items='' } = state;
-    if (!key) return state;
-    let bytes = AES.decrypt(items, key);
-    let data = JSON.parse(bytes.toString(enc.Utf8));
-    return { ...state, items: data, dcrypted: true }
+  [actionTypes.DECRYPT]: (state, action) => {
+    let { items, decrypted } = state;
+    if (decrypted) return state;
+    if (!items) return { ...state, local: { ...state.local, decrypted: true }};
+    let data = CryptoHelper.decryptItems(items);
+    return { ...state, items: data, local: {
+        ...state.local,
+        decrypted: true,
+      }
+    }
   },
   [REHYDRATE]: (state, action) => {
-    const items = action.payload.items || [];
-    return { ...state, items }
+    const { wallet } = action.payload;
+    return { ...state, ...wallet };
   },
 };
-
-
 
 const Reducer = (state = {}, action) => {
   if (handlers[action.type]) {

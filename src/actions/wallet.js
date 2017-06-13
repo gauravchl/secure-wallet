@@ -1,7 +1,7 @@
 const actionTypes = {
   CREATE_ITEM: 'CREATE_ITEM',
   UPDATE_ITEM: 'UPDATE_ITEM',
-  DCRYPT: 'DCRYPT',
+  DECRYPT: 'DECRYPT',
 }
 
 export { actionTypes };
@@ -14,6 +14,6 @@ export function updateItem(id, data) {
   return { type: actionTypes.UPDATE_ITEM, data }
 }
 
-export function dcryptItems(key) {
-  return { type: actionTypes.DCRYPT, key }
+export function decryptItems() {
+  return { type: actionTypes.DECRYPT }
 }
