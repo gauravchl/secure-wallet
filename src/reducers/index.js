@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import items from './items.js';
+import wallet from './wallet.js';
 import login from './login.js';
 
-export default combineReducers({ items, login })
+export default combineReducers({ wallet, login })

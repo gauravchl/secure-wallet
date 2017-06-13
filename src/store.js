@@ -7,7 +7,7 @@ let store = createStore(Reducers);
 
 // Don;t save login key in localstorage
 const loginBlacklistFilter = createBlacklistFilter('login', ['local']);
-const itemsBlacklistFilter = createBlacklistFilter('items', ['local']);
+const itemsBlacklistFilter = createBlacklistFilter('wallet', ['local']);
 
 
 persistStore(store, { transforms:[ loginBlacklistFilter, itemsBlacklistFilter ]});
