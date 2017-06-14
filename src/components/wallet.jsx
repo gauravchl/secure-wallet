@@ -4,11 +4,26 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Logo from 'components/logo.jsx';
 import FlatButton from 'material-ui/FlatButton';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 
 class Wallet extends React.Component {
   constructor(props){
     super(props);
+    this.renderDrawer = this.renderDrawer.bind(this);
+  }
 
+  renderDrawer() {
+    let { items=[]} = this.props;
+    let drawerItems = items.map((item, index) => {
+      return <MenuItem key={index}>{item.title}</MenuItem>
+    })
+
+    return (
+      <Drawer containerStyle={styles.drawer} open={true} docked={true}>
+        {drawerItems}
+      </Drawer>
+    )
   }
 
 
@@ -21,6 +36,7 @@ class Wallet extends React.Component {
           <Logo style={styles.topBar.logo} />
           <FlatButton onTouchTap={onClickLogout} label='logout' style={{ marginLeft: 'auto' }} />
         </div>
+        {this.renderDrawer()}
         <FloatingActionButton style={styles.addBtn} onTouchTap={onClickAddItem}>
           <ContentAdd />
         </FloatingActionButton>
@@ -49,7 +65,7 @@ const styles = {
 
   topBar: {
     borderBottom: 'solid 1px #E0E0E0',
-    padding: '0 18px',
+    padding: '0 12px',
     height: 68,
     display: 'flex',
     alignItems: 'center',
@@ -57,6 +73,14 @@ const styles = {
       width: 48,
       height: 48,
     }
+  },
+  drawer:{
+    boxShadow: 'none',
+    top: '68px',
+    borderRight: 'solid 1px #E0E0E0',
+    borderTop: 'solid 1px #E0E0E0',
+    paddingTop: '12px',
+    paddingBottom: '68px',
   }
 
 }
