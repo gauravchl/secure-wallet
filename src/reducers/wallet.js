@@ -6,7 +6,18 @@ import CryptoHelper from 'helper/crypto';
 const handlers = {
   [actionTypes.CREATE_ITEM]: (state, action) => {
     let { items=[], ...others } = state;
-    let newState = { ...others, items:  [{ a: 1 }, ...items ]}
+    let newItem = {
+      title: 'New login',
+      type: 'LOGIN',
+      createdAt: new Date(),
+      data: {
+        username: 'gaurav',
+        password: '123456789',
+        notes: 'some notes',
+        website: 'google.com'
+      }
+    }
+    let newState = { ...others, items:  [ newItem, ...items ]}
     return newState;
   },
   [actionTypes.UPDATE_ITEM]: (state, action) => {
