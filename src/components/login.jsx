@@ -10,6 +10,7 @@ class Login extends React.Component {
   constructor(props){
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handlePressEnter = this.handlePressEnter.bind(this);
   }
 
   handleLoginClick() {
@@ -18,6 +19,12 @@ class Login extends React.Component {
       onLoginClick(this._tf.getValue())
     } else {
       onCreateLoginClick(this._tf.getValue())
+    }
+  }
+
+  handlePressEnter(e) {
+    if (e.key === 'Enter') {
+      this.handleLoginClick()
     }
   }
 
@@ -35,6 +42,7 @@ class Login extends React.Component {
           <TextField ref={(ref) => this._tf = ref}
             style={styles.field}
             errorText={local && local.error}
+            onKeyPress={this.handlePressEnter}
             floatingLabelText="Master key"
             type="password" fullWidth={true}
           />
