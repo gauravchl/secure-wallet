@@ -2,6 +2,7 @@ const actionTypes = {
   CREATE_ITEM: 'CREATE_ITEM',
   UPDATE_ITEM: 'UPDATE_ITEM',
   DECRYPT: 'DECRYPT',
+  ENCRYPT: 'ENCRYPT',
 }
 
 export { actionTypes };
@@ -16,4 +17,8 @@ export function updateItem(id, data) {
 
 export function decryptItems() {
   return { type: actionTypes.DECRYPT }
+}
+
+export function encryptItems() {
+  return { type: actionTypes.ENCRYPT }
 }

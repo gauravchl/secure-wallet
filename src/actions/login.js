@@ -1,5 +1,6 @@
 const actionTypes = {
   LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT',
   CREATE_LOGIN: 'CREATE_LOGIN',
   UPDATE_LOGIN: 'UPDATE_LOGIN',
 }
@@ -16,4 +17,8 @@ export function createLogin(masterKey) {
 
 export function updateLogin(oldMasterKey, newMasterKey) {
   return { type: actionTypes.UPDATE_LOGIN, oldMasterKey, newMasterKey }
+}
+
+export function logout() {
+  return { type: actionTypes.LOGOUT }
 }

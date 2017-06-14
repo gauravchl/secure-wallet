@@ -24,13 +24,23 @@ const handlers = {
     return // some new state with note updated
   },
   [actionTypes.DECRYPT]: (state, action) => {
-    let { items, decrypted } = state;
-    if (decrypted) return state;
+    let { items, local={}} = state;
+    if (local.decrypted) return state;
     if (!items) return { ...state, local: { ...state.local, decrypted: true }};
     let data = CryptoHelper.decryptItems(items);
     return { ...state, items: data, local: {
         ...state.local,
         decrypted: true,
+      }
+    }
+  },
+  [actionTypes.ENCRYPT]: (state, action) => {
+    let { items, local={}} = state;
+    if (!local.decrypted) return state;
+    let data = CryptoHelper.encryptItems(items);
+    return { ...state, items: data, local: {
+        ...state.local,
+        decrypted: false,
       }
     }
   },

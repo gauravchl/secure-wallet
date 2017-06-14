@@ -27,6 +27,10 @@ const handlers = {
     let newState = { ...state, masterKey: newMasterKey };
     return newState;
   },
+  [actionTypes.LOGOUT]: (state, action) => {
+    let newState = { ...state, local: { loggedIn: false }};
+    return newState;
+  },
   [REHYDRATE]: (state, action) => {
     return action.payload.login || state;
   },
