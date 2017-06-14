@@ -4,8 +4,10 @@ import { createItem, updateItem, encryptItems } from 'actions/wallet';
 import { logout } from 'actions/login';
 
 const mapStateToProps = (state) => {
+  let { wallet } = state;
+  let items = wallet.local && wallet.local.decrypted && wallet.items || []
   return {
-    items: state.items,
+    items: items
   }
 }
 
