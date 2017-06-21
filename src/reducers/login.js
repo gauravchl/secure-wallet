@@ -19,8 +19,9 @@ const handlers = {
     let { masterKey } = action;
     if (state.masterKey) return throwError(state, 'Master key is already exist');
     if (!masterKey || !masterKey.trim()) return throwError(state, 'Master key required');
-    let hash = bcrypt.hashSync(masterKey, 10)
-    return { ...state,  masterKey: hash }
+    let hash = bcrypt.hashSync(masterKey, 10);
+    CryptoHelper.setSecretKey(hash);
+    return { ...state,  masterKey: hash, local: { loggedIn : true }}
   },
   [actionTypes.UPDATE_LOGIN]: (state, action) => {
     let { oldMasterKey, newMasterKey } = action;
