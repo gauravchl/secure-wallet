@@ -1,12 +1,14 @@
 import { actionTypes } from 'actions/wallet';
 import { REHYDRATE } from 'redux-persist/constants';
 import CryptoHelper from 'helper/crypto';
+import uuidv4 from 'uuid/v4';
 
 
 const handlers = {
   [actionTypes.CREATE_ITEM]: (state, action) => {
     let { items=[], ...others } = state;
     let newItem = {
+      _id: uuidv4(),
       title: 'New login',
       type: 'LOGIN',
       createdAt: new Date(),

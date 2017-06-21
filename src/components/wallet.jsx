@@ -6,12 +6,15 @@ import Logo from 'components/logo.jsx';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import WalletItem from 'components/wallet-item.jsx'
 
 class Wallet extends React.Component {
   constructor(props){
     super(props);
+    this.state = { currentWalletItem: null };
     this.renderDrawer = this.renderDrawer.bind(this);
   }
+
 
   renderDrawer() {
     let { items=[]} = this.props;
@@ -27,6 +30,13 @@ class Wallet extends React.Component {
   }
 
 
+  renderWalletItem() {
+    let { items=[]} = this.props;
+    let { currentWalletItem } = this.state;
+    return <WalletItem item={currentWalletItem || items.length ? items[0] : null}/>
+  }
+
+
   render() {
     let { onClickAddItem, onClickLogout, items=[]} = this.props;
 
@@ -37,6 +47,7 @@ class Wallet extends React.Component {
           <FlatButton onTouchTap={onClickLogout} label='logout' style={{ marginLeft: 'auto' }} />
         </div>
         {this.renderDrawer()}
+        {this.renderWalletItem()}
         <FloatingActionButton style={styles.addBtn} onTouchTap={onClickAddItem}>
           <ContentAdd />
         </FloatingActionButton>
