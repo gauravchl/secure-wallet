@@ -12,3 +12,7 @@ ul, li{
   width: 100vw;
   height: 100vh;
 }
+
+a {
+  color: #03A9F4;
+}

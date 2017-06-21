@@ -9,14 +9,14 @@ const handlers = {
     let { items=[], ...others } = state;
     let newItem = {
       _id: uuidv4(),
-      title: 'New login',
+      title: 'facebook login',
       type: 'LOGIN',
       createdAt: new Date(),
       data: {
-        username: 'gaurav',
+        username: 'gauravchl',
         password: '123456789',
         notes: 'some notes',
-        website: 'google.com'
+        website: 'github.com'
       }
     }
     let newState = { ...others, items:  [ newItem, ...items ]}

@@ -1,27 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Logo from 'components/logo.jsx';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import WalletItem from 'components/wallet-item.jsx'
+import WalletItem from 'components/wallet-item.jsx';
+import { grey50, grey200 } from 'material-ui/styles/colors';
 
 class Wallet extends React.Component {
   constructor(props){
     super(props);
-    this.state = { currentWalletItem: null };
+    this.state = { currentItem: null };
     this.renderDrawer = this.renderDrawer.bind(this);
   }
 
 
   renderDrawer() {
     let { items=[]} = this.props;
+    let { currentItem } = this.state;
+    let style = { backgroundColor: grey200 };
     let drawerItems = items.map((item, index) => {
-      return <MenuItem key={index}>{item.title}</MenuItem>
+      return (
+        <MenuItem
+          style={item._id === currentItem ? style : {}}
+          onTouchTap={() => this.setState({ currentItem: item._id })}
+          key={index}>
+          {item.title}
+        </MenuItem>
+      )
     })
-
     return (
       <Drawer containerStyle={styles.drawer} open={true} docked={true}>
         {drawerItems}
@@ -32,8 +41,10 @@ class Wallet extends React.Component {
 
   renderWalletItem() {
     let { items=[]} = this.props;
-    let { currentWalletItem } = this.state;
-    return <WalletItem item={currentWalletItem || items.length ? items[0] : null}/>
+    let { currentItem } = this.state;
+    let item = items.find(item => item._id === currentItem)
+    if (!item) item = items.length ? items[0] : null
+    return <WalletItem item={item}/>
   }
 
 
@@ -80,6 +91,7 @@ const styles = {
     height: 68,
     display: 'flex',
     alignItems: 'center',
+    backgroundColor: grey50,
     logo: {
       width: 48,
       height: 48,
