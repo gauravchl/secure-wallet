@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 let Logo = (props) => {
-  let { backgroundColor='#EEEEEE', lockColor='#424242', ...others } = props;
+  let { backgroundColor='#616161', lockColor='#FFFFFF', ...others } = props;
 
   return (
     <svg width="245px" height="245px" viewBox="38 125 245 245" {...others} >
