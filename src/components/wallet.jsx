@@ -1,31 +1,45 @@
-import React from 'react';
+import React     from 'react';
 import PropTypes from 'prop-types';
+
+import ContentAdd           from 'material-ui/svg-icons/content/add';
+import { grey50, grey200 }  from 'material-ui/styles/colors';
+import FlatButton           from 'material-ui/FlatButton';
+import Drawer               from 'material-ui/Drawer';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import Logo from 'components/logo.jsx';
-import FlatButton from 'material-ui/FlatButton';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import WalletItem from 'components/wallet-item.jsx';
-import { grey50, grey200 } from 'material-ui/styles/colors';
+import MenuItem             from 'material-ui/MenuItem';
+
+import Logo              from 'components/logo.jsx';
+import WalletItem        from 'components/wallet-item.jsx';
+import WalletItemAddEdit from 'components/wallet-item-add-edit.jsx';
 
 class Wallet extends React.Component {
   constructor(props){
     super(props);
-    this.state = { currentItem: null };
+    this.state = {
+      currentItemId: null,
+      showAddEdit: false,
+    };
     this.renderDrawer = this.renderDrawer.bind(this);
+    this.handleOnEditClick = this.handleOnEditClick.bind(this);
+  }
+
+
+  componentWillMount() {
+    let { items=[]} = this.props;
+    let { currentItemId } = this.state;
+    if (items && items.length) this.setState({ currentItemId: items[0]._id })
   }
 
 
   renderDrawer() {
     let { items=[]} = this.props;
-    let { currentItem } = this.state;
+    let { currentItemId } = this.state;
     let style = { backgroundColor: grey200 };
     let drawerItems = items.map((item, index) => {
       return (
         <MenuItem
-          style={item._id === currentItem ? style : {}}
-          onTouchTap={() => this.setState({ currentItem: item._id })}
+          style={item._id === currentItemId ? style : {}}
+          onTouchTap={(e) => this.handleClickOnDrawerItem(e, item._id)}
           key={index}>
           {item.title}
         </MenuItem>
@@ -39,12 +53,27 @@ class Wallet extends React.Component {
   }
 
 
+  handleClickOnDrawerItem(e, itemId) {
+    this.setState({ currentItemId: itemId, showAddEdit: false })
+  }
+
+
+  handleOnEditClick() {
+    this.setState({ showAddEdit: true });
+  }
+
+
   renderWalletItem() {
     let { items=[]} = this.props;
-    let { currentItem } = this.state;
-    let item = items.find(item => item._id === currentItem)
-    if (!item) item = items.length ? items[0] : null
-    return <WalletItem item={item}/>
+    let { currentItemId, showAddEdit } = this.state;
+    let item = items.find(item => item._id === currentItemId)
+    console.log('renderWalletItem - ', currentItemId, item)
+
+    if (showAddEdit) {
+      return <WalletItemAddEdit item={item} />
+    } else {
+      return <WalletItem item={item} onClickEdit={this.handleOnEditClick}/>
+    }
   }
 
 

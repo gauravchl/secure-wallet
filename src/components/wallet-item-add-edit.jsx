@@ -1,46 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { grey300, grey900 } from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
-class WalletItem extends React.Component {
+class WalletItemAddEdit extends React.Component {
   constructor(props){
     super(props);
   }
 
   render() {
-    let { item, onClickEdit, onClickRemove } = this.props;
+    let { item } = this.props;
     return (
       <div style={styles.root}>
         <div style={styles.titleBar}>
           <span>{item.title}</span>
-          <div>
-            <FlatButton label='Edit' primary={true} onTouchTap={onClickEdit} />
-            <FlatButton label='Remove' primary={true} onTouchTap={onClickRemove}/>
-          </div>
         </div>
 
         <div>
           <div style={styles.field}>
+            <div style={styles.field.name}>title</div>
+            <div style={styles.field.value}><TextField defaultValue={item.title} hintText='required'/></div>
+          </div>
+
+          <div style={styles.field}>
             <div style={styles.field.name}>username</div>
-            <div style={styles.field.value}>{item.data.username}</div>
+            <div style={styles.field.value}><TextField defaultValue={item.data.username} hintText='username or email'/></div>
           </div>
 
           <div style={styles.field}>
             <div style={styles.field.name}>password</div>
-            <div style={{ ...styles.field.value, ...styles.passwordField }}>{item.data.password}</div>
+            <div style={{ ...styles.field.value, ...styles.passwordField }}>
+              <TextField defaultValue={item.data.password} hintText='Add pasword' />
+            </div>
           </div>
 
           <div style={styles.field}>
             <div style={styles.field.name}>website</div>
             <div style={{ ...styles.field.value, ...styles.website }}>
-              <a href={item.data.website} target='_blank'>{item.data.website}</a>
+              <TextField defaultValue={item.data.website} hintText='Add website link' />
             </div>
           </div>
 
-          <div style={styles.field}>
-            <div style={styles.field.name}>notes</div>
-            <div style={styles.field.value}>{item.data.notes}</div>
+          <div style={{ ...styles.field, alignItems: 'initial', height: 'auto' }}>
+            <div style={{ ...styles.field.name, marginTop: '12px' }}>notes</div>
+            <div style={styles.field.value}>
+              <TextField defaultValue={item.data.notes} multiLine={true} rows={2} id='notes' />
+            </div>
           </div>
         </div>
       </div>
@@ -49,10 +54,8 @@ class WalletItem extends React.Component {
 }
 
 
-WalletItem.propTypes = {
+WalletItemAddEdit.propTypes = {
   item: PropTypes.object,
-  onClickEdit: PropTypes.func,
-  onClickRemove: PropTypes.func,
 }
 
 
@@ -72,12 +75,11 @@ const styles = {
     alignItems: 'center',
     height: '72px',
     marginBottom: '32px',
-    justifyContent: 'space-between',
   },
   field: {
     display: 'flex',
     alignItems: 'center',
-    height: '52px',
+    height: '62px',
     name: {
       textTransform: 'capitalize',
       flex: '0 0 172px',
@@ -91,4 +93,4 @@ const styles = {
   }
 
 }
-export default WalletItem
+export default WalletItemAddEdit
