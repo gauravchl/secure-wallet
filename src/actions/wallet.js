@@ -11,8 +11,8 @@ export function createItem(data) {
   return { type: actionTypes.CREATE_ITEM, data }
 }
 
-export function updateItem(id, data) {
-  return { type: actionTypes.UPDATE_ITEM, data }
+export function updateItem(updatedItem) {
+  return { type: actionTypes.UPDATE_ITEM, updatedItem }
 }
 
 export function decryptItems() {

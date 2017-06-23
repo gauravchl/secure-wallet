@@ -13,12 +13,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClickAddItem: (data) => {
+    onCreateItem: (data) => {
       dispatch(createItem(data))
     },
     onClickLogout: () => {
       dispatch(encryptItems())
       dispatch(logout())
+    },
+    onUpdateItem: (updatedItem) => {
+      dispatch(updateItem(updatedItem))
     }
   }
 }

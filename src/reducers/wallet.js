@@ -22,9 +22,24 @@ const handlers = {
     let newState = { ...others, items:  [ newItem, ...items ]}
     return newState;
   },
+
   [actionTypes.UPDATE_ITEM]: (state, action) => {
-    return // some new state with note updated
+    let { items=[], ...others } = state;
+    let { updatedItem } = action;
+    let index = items.findIndex(item => item._id === updatedItem._id)
+    let oldItem = items.find(item => item._id === updatedItem._id)
+    if (!oldItem) return state;
+
+    items.splice(index, 1, {
+      ...oldItem,
+      title: updatedItem.title,
+      data: updatedItem.data,
+      updatedAt: new Date(),
+    })
+
+    return { ...others, items:  [...items]}
   },
+
   [actionTypes.DECRYPT]: (state, action) => {
     let { items, local={}} = state;
     if (local.decrypted) return state;

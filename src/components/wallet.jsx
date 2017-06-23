@@ -21,6 +21,8 @@ class Wallet extends React.Component {
     };
     this.renderDrawer = this.renderDrawer.bind(this);
     this.handleOnEditClick = this.handleOnEditClick.bind(this);
+    this.handleOnSaveClick = this.handleOnSaveClick.bind(this);
+    this.handleOnCancelClick = this.handleOnCancelClick.bind(this);
   }
 
 
@@ -62,23 +64,33 @@ class Wallet extends React.Component {
     this.setState({ showAddEdit: true });
   }
 
+  handleOnSaveClick(updatedItem) {
+    let { onUpdateItem } = this.props;
+    onUpdateItem(updatedItem);
+    this.setState({ showAddEdit: false });
+  }
+
+  handleOnCancelClick() {
+    this.setState({ showAddEdit: false });
+  }
+
 
   renderWalletItem() {
     let { items=[]} = this.props;
     let { currentItemId, showAddEdit } = this.state;
     let item = items.find(item => item._id === currentItemId)
-    console.log('renderWalletItem - ', currentItemId, item)
 
     if (showAddEdit) {
-      return <WalletItemAddEdit item={item} />
+      return <WalletItemAddEdit item={item} onClickCancel={this.handleOnCancelClick} onClickSave={this.handleOnSaveClick} />
     } else {
-      return <WalletItem item={item} onClickEdit={this.handleOnEditClick}/>
+      if (!item) return null; // TODO - add  intro section here, show how to get started
+      return <WalletItem item={item} onClickEdit={this.handleOnEditClick}/>;
     }
   }
 
 
   render() {
-    let { onClickAddItem, onClickLogout, items=[]} = this.props;
+    let { onCreateItem, onClickLogout, items=[]} = this.props;
 
     return (
       <div style={styles.root}>
@@ -88,7 +100,7 @@ class Wallet extends React.Component {
         </div>
         {this.renderDrawer()}
         {this.renderWalletItem()}
-        <FloatingActionButton style={styles.addBtn} onTouchTap={onClickAddItem}>
+        <FloatingActionButton style={styles.addBtn} onTouchTap={onCreateItem}>
           <ContentAdd />
         </FloatingActionButton>
       </div>
@@ -99,7 +111,8 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
-  onClickAddItem: PropTypes.func,
+  onCreateItem: PropTypes.func,
+  onUpdateItem: PropTypes.func,
   onClickLogout: PropTypes.func
 }
 
