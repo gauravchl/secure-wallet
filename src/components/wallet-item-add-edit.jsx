@@ -12,7 +12,7 @@ class WalletItemAddEdit extends React.Component {
 
 
   handleOnClickSave() {
-    let { item, onClickSave } = this.props;
+    let { item, onClickSave, onClickCreate } = this.props;
 
     let newItem = { ...item,
       title: this._tfTitle.getValue(),
@@ -23,7 +23,9 @@ class WalletItemAddEdit extends React.Component {
         notes: this._tfNotes.getValue(),
       }
     }
-    onClickSave(newItem);
+
+    if (newItem._id) onClickSave(newItem);
+    else onClickCreate(newItem);
   }
 
   render() {
@@ -31,7 +33,7 @@ class WalletItemAddEdit extends React.Component {
     return (
       <div style={styles.root}>
         <div style={styles.titleBar}>
-          <span>{item.title}</span>
+          <span>{item && item.title || 'Create New'}</span>
           <div>
             <FlatButton label='Cancel' primary={true} onTouchTap={onClickCancel} />
             <FlatButton label='Save' primary={true} onTouchTap={this.handleOnClickSave}/>
@@ -45,7 +47,7 @@ class WalletItemAddEdit extends React.Component {
               <TextField
                 ref={(ref) => this._tfTitle = ref}
                 inputStyle={{ textTransform: 'capitalize' }}
-                defaultValue={item.title} hintText='required'/>
+                defaultValue={item && item.title} hintText='Add title'/>
             </div>
           </div>
 
@@ -54,7 +56,7 @@ class WalletItemAddEdit extends React.Component {
             <div style={styles.field.value}>
               <TextField
                 ref={(ref) => this._tfUsername = ref}
-                defaultValue={item.data.username} hintText='username or email'/>
+                defaultValue={item && item.data.username} hintText='username or email'/>
             </div>
           </div>
 
@@ -63,7 +65,7 @@ class WalletItemAddEdit extends React.Component {
             <div style={{ ...styles.field.value, ...styles.passwordField }}>
               <TextField
                 ref={(ref) => this._tfPassword = ref}
-                defaultValue={item.data.password} hintText='Add pasword' />
+                defaultValue={item && item.data.password} hintText='Add pasword' />
             </div>
           </div>
 
@@ -72,7 +74,7 @@ class WalletItemAddEdit extends React.Component {
             <div style={{ ...styles.field.value, ...styles.website }}>
               <TextField
                 ref={(ref) => this._tfWebsite = ref}
-                defaultValue={item.data.website} hintText='Add website link' />
+                defaultValue={item && item.data.website} hintText='Add website link' />
             </div>
           </div>
 
@@ -81,7 +83,7 @@ class WalletItemAddEdit extends React.Component {
             <div style={styles.field.value}>
               <TextField
                 ref={(ref) => this._tfNotes = ref}
-                defaultValue={item.data.notes} multiLine={true} rows={2} id='notes' />
+                defaultValue={item && item.data.notes} multiLine={true} rows={2} id='notes' hintText='Some notes' />
             </div>
           </div>
         </div>
@@ -95,6 +97,7 @@ WalletItemAddEdit.propTypes = {
   item: PropTypes.object,
   onClickCancel: PropTypes.func.isRequired,
   onClickSave: PropTypes.func.isRequired,
+  onClickCreate: PropTypes.func.isRequired,
 }
 
 

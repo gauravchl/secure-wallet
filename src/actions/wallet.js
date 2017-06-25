@@ -7,8 +7,8 @@ const actionTypes = {
 
 export { actionTypes };
 
-export function createItem(data) {
-  return { type: actionTypes.CREATE_ITEM, data }
+export function createItem(item) {
+  return { type: actionTypes.CREATE_ITEM, item }
 }
 
 export function updateItem(updatedItem) {

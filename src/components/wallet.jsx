@@ -22,13 +22,14 @@ class Wallet extends React.Component {
     this.renderDrawer = this.renderDrawer.bind(this);
     this.handleOnEditClick = this.handleOnEditClick.bind(this);
     this.handleOnSaveClick = this.handleOnSaveClick.bind(this);
+    this.handleOnAddBtnClick = this.handleOnAddBtnClick.bind(this);
+    this.handleOnCreateClick = this.handleOnCreateClick.bind(this);
     this.handleOnCancelClick = this.handleOnCancelClick.bind(this);
   }
 
 
   componentWillMount() {
     let { items=[]} = this.props;
-    let { currentItemId } = this.state;
     if (items && items.length) this.setState({ currentItemId: items[0]._id })
   }
 
@@ -60,15 +61,34 @@ class Wallet extends React.Component {
   }
 
 
+  handleOnAddBtnClick() {
+    this.setState({ showAddEdit: true, currentItemId: null });
+  }
+
+
+  handleOnCreateClick(item) {
+    let { createItem } = this.props;
+    createItem(item);
+    this.setState({ showAddEdit: false }, _ => {
+      // HACK - To show lastly created item
+      // Implement proper redux action
+      let { items } = this.props;
+      this.setState({ currentItemId: items[0] && items[0]._id })
+    });
+  }
+
+
   handleOnEditClick() {
     this.setState({ showAddEdit: true });
   }
 
+
   handleOnSaveClick(updatedItem) {
-    let { onUpdateItem } = this.props;
-    onUpdateItem(updatedItem);
+    let { updateItem } = this.props;
+    updateItem(updatedItem);
     this.setState({ showAddEdit: false });
   }
+
 
   handleOnCancelClick() {
     this.setState({ showAddEdit: false });
@@ -81,7 +101,12 @@ class Wallet extends React.Component {
     let item = items.find(item => item._id === currentItemId)
 
     if (showAddEdit) {
-      return <WalletItemAddEdit item={item} onClickCancel={this.handleOnCancelClick} onClickSave={this.handleOnSaveClick} />
+      return (
+        <WalletItemAddEdit item={item}
+          onClickCancel={this.handleOnCancelClick}
+          onClickCreate={this.handleOnCreateClick}
+          onClickSave={this.handleOnSaveClick} />
+      )
     } else {
       if (!item) return null; // TODO - add  intro section here, show how to get started
       return <WalletItem item={item} onClickEdit={this.handleOnEditClick}/>;
@@ -90,17 +115,17 @@ class Wallet extends React.Component {
 
 
   render() {
-    let { onCreateItem, onClickLogout, items=[]} = this.props;
+    let { logout, items=[]} = this.props;
 
     return (
       <div style={styles.root}>
         <div style={styles.topBar}>
           <Logo style={styles.topBar.logo} />
-          <FlatButton onTouchTap={onClickLogout} label='logout' style={{ marginLeft: 'auto' }} />
+          <FlatButton onTouchTap={logout} label='logout' style={{ marginLeft: 'auto' }} />
         </div>
         {this.renderDrawer()}
         {this.renderWalletItem()}
-        <FloatingActionButton style={styles.addBtn} onTouchTap={onCreateItem}>
+        <FloatingActionButton style={styles.addBtn} onTouchTap={this.handleOnAddBtnClick}>
           <ContentAdd />
         </FloatingActionButton>
       </div>
@@ -111,9 +136,9 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
-  onCreateItem: PropTypes.func,
-  onUpdateItem: PropTypes.func,
-  onClickLogout: PropTypes.func
+  createItem: PropTypes.func,
+  updateItem: PropTypes.func,
+  logout: PropTypes.func
 }
 
 

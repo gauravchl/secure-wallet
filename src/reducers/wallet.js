@@ -7,16 +7,18 @@ import uuidv4 from 'uuid/v4';
 const handlers = {
   [actionTypes.CREATE_ITEM]: (state, action) => {
     let { items=[], ...others } = state;
+    let { item={}} = action;
+
     let newItem = {
       _id: uuidv4(),
-      title: 'facebook login',
+      title: item.title || 'Untitled',
       type: 'LOGIN',
       createdAt: new Date(),
       data: {
-        username: 'gauravchl',
-        password: '123456789',
-        notes: 'some notes',
-        website: 'github.com'
+        username: item.data && item.data.username,
+        password: item.data && item.data.password,
+        notes: item.data && item.data.notes,
+        website: item.data && item.data.website,
       }
     }
     let newState = { ...others, items:  [ newItem, ...items ]}
@@ -32,7 +34,7 @@ const handlers = {
 
     items.splice(index, 1, {
       ...oldItem,
-      title: updatedItem.title,
+      title: updatedItem.title || 'Untitled',
       data: updatedItem.data,
       updatedAt: new Date(),
     })
