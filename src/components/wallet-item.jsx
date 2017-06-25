@@ -10,6 +10,7 @@ class WalletItem extends React.Component {
     super(props);
   }
 
+
   render() {
     let { item, onClickEdit } = this.props;
     return (
@@ -35,7 +36,9 @@ class WalletItem extends React.Component {
           <div style={styles.field}>
             <div style={styles.field.name}>website</div>
             <div style={{ ...styles.field.value, ...styles.website }}>
-              <a href={item.data.website} target='_blank'>{item.data.website}</a>
+              <a href={item.data.website} target='_blank'>
+                {item.data.website && item.data.website.replace(/https:\/\/|http:\/\//, '')}
+              </a>
             </div>
           </div>
 

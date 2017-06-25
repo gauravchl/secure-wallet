@@ -16,12 +16,15 @@ class WalletItemAddEdit extends React.Component {
   handleOnClickSave() {
     let { item, onClickSave, onClickCreate } = this.props;
 
+    let website = this._tfWebsite.getValue();
+    if (website && website.indexOf('http') < 0) website = 'https://' + website;
+
     let newItem = { ...item,
       title: this._tfTitle.getValue(),
       data: {
         username: this._tfUsername.getValue(),
         password: this._tfPassword.getValue(),
-        website: this._tfWebsite.getValue(),
+        website: website,
         notes: this._tfNotes.getValue(),
       }
     }
