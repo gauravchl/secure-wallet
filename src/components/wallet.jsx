@@ -38,11 +38,12 @@ class Wallet extends React.Component {
   renderDrawer() {
     let { items=[]} = this.props;
     let { currentItemId } = this.state;
-    let style = { backgroundColor: grey200 };
     let drawerItems = items.map((item, index) => {
+      let style = item._id ===  currentItemId ? { backgroundColor: grey200 } : null
       return (
         <MenuItem
-          style={item._id === currentItemId ? style : {}}
+          style={style}
+          innerDivStyle={styles.drawerItem}
           onTouchTap={(e) => this.handleClickOnDrawerItem(e, item._id)}
           key={index}>
           {item.title}
@@ -181,6 +182,11 @@ const styles = {
     borderTop: 'solid 1px #E0E0E0',
     paddingTop: '12px',
     paddingBottom: '68px',
+  },
+  drawerItem: {
+    textTransform: 'capitalize',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   }
 
 }
