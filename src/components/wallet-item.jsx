@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { grey300, grey900 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
+import EditIcon from 'material-ui/svg-icons/image/edit';
+
 
 class WalletItem extends React.Component {
   constructor(props){
@@ -37,9 +39,9 @@ class WalletItem extends React.Component {
             </div>
           </div>
 
-          <div style={styles.field}>
+          <div style={{ ...styles.field, alignItems: 'initial', marginTop: '18px' }}>
             <div style={styles.field.name}>notes</div>
-            <div style={styles.field.value}>{item.data.notes}</div>
+            <div style={{ ...styles.field.value, ...styles.notes }}>{item.data.notes}</div>
           </div>
         </div>
       </div>
@@ -86,6 +88,9 @@ const styles = {
   },
   passwordField: {
     WebkitTextSecurity: 'disc',
+  },
+  notes: {
+    whiteSpace: 'pre-line',
   }
 
 }

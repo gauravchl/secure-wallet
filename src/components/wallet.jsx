@@ -127,6 +127,7 @@ class Wallet extends React.Component {
 
   render() {
     let { logout, items=[]} = this.props;
+    let { showAddEdit } = this.state;
 
     return (
       <div style={styles.root}>
@@ -136,9 +137,11 @@ class Wallet extends React.Component {
         </div>
         {this.renderDrawer()}
         {this.renderWalletItem()}
-        <FloatingActionButton style={styles.addBtn} onTouchTap={this.handleOnAddBtnClick}>
-          <ContentAdd />
-        </FloatingActionButton>
+        { showAddEdit ? null :
+            <FloatingActionButton style={styles.addBtn} onTouchTap={this.handleOnAddBtnClick}>
+              <ContentAdd />
+            </FloatingActionButton>
+        }
       </div>
     )
   }

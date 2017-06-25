@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { grey300, grey900 } from 'material-ui/styles/colors';
+import { grey200, grey300, grey900 } from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
 
 class WalletItemAddEdit extends React.Component {
   constructor(props){
@@ -42,17 +43,9 @@ class WalletItemAddEdit extends React.Component {
       <div style={styles.root}>
         <div style={styles.titleBar}>
           <span>{item && item.title || 'Create New'}</span>
-          <div>
-            <FlatButton label='Cancel' primary={true} onTouchTap={onClickCancel} />
-            <FlatButton label='Save' primary={true} onTouchTap={this.handleOnClickSave}/>
-            { isEdit
-              ?  <FlatButton label='Remove' primary={true} onTouchTap={this.handleOnClickRemove}/>
-              :  null
-            }
-          </div>
         </div>
 
-        <div>
+        <div style={{ flex: '1', overflowY: 'scroll' }}>
           <div style={styles.field}>
             <div style={styles.field.name}>title</div>
             <div style={styles.field.value}>
@@ -95,8 +88,22 @@ class WalletItemAddEdit extends React.Component {
             <div style={styles.field.value}>
               <TextField
                 ref={(ref) => this._tfNotes = ref}
-                defaultValue={item && item.data.notes} multiLine={true} rows={2} id='notes' hintText='Some notes' />
+                defaultValue={item && item.data.notes} multiLine={true} rows={4}
+                id='notes' hintText='Some notes'
+                hintStyle={{ top: '12px' }}/>
             </div>
+          </div>
+        </div>
+
+        <div style={styles.actionContainer}>
+          { isEdit
+            ?  <FlatButton label='Remove' icon={<DeleteIcon />} primary={true} onTouchTap={this.handleOnClickRemove}/>
+            :  null
+          }
+
+          <div style={{ float: 'right' }}>
+            <FlatButton label='Cancel' primary={true} onTouchTap={onClickCancel} />&nbsp;
+            <FlatButton label='Save' primary={true} style={{ backgroundColor: grey200 }} onTouchTap={this.handleOnClickSave}/>
           </div>
         </div>
       </div>
@@ -115,10 +122,12 @@ WalletItemAddEdit.propTypes = {
 
 const styles = {
   root: {
-    height: 'calc(100% - 72px - 18px - 18px)',
+    height: 'calc(100% - 72px - 18px)',
     marginLeft: '256px',
     padding: '0 24px',
     color: grey900,
+    display: 'flex',
+    flexDirection: 'column',
   },
   titleBar: {
     borderBottom: `solid 1px ${grey300}`,
@@ -145,7 +154,11 @@ const styles = {
   },
   passwordField: {
     WebkitTextSecurity: 'disc',
-  }
+  },
+  actionContainer: {
+    borderTop: `solid 1px ${grey300}`,
+    paddingTop: '12px',
+  },
 
 }
 export default WalletItemAddEdit
