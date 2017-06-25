@@ -8,6 +8,7 @@ class WalletItemAddEdit extends React.Component {
   constructor(props){
     super(props);
     this.handleOnClickSave = this.handleOnClickSave.bind(this);
+    this.handleOnClickRemove = this.handleOnClickRemove.bind(this);
   }
 
 
@@ -28,8 +29,15 @@ class WalletItemAddEdit extends React.Component {
     else onClickCreate(newItem);
   }
 
+  handleOnClickRemove() {
+    let { item, onClickRemove } = this.props;
+    if (!item) return;
+    onClickRemove(item._id);
+  }
+
   render() {
     let { item, onClickCancel } = this.props;
+    let isEdit = !!item;
     return (
       <div style={styles.root}>
         <div style={styles.titleBar}>
@@ -37,6 +45,10 @@ class WalletItemAddEdit extends React.Component {
           <div>
             <FlatButton label='Cancel' primary={true} onTouchTap={onClickCancel} />
             <FlatButton label='Save' primary={true} onTouchTap={this.handleOnClickSave}/>
+            { isEdit
+              ?  <FlatButton label='Remove' primary={true} onTouchTap={this.handleOnClickRemove}/>
+              :  null
+            }
           </div>
         </div>
 

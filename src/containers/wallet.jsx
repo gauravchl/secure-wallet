@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Wallet from 'components/wallet.jsx'
-import { createItem, updateItem, encryptItems } from 'actions/wallet';
+import { createItem, updateItem, removeItem, encryptItems } from 'actions/wallet';
 import { logout } from 'actions/login';
 
 const mapStateToProps = (state) => {
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateItem: (updatedItem) => {
       dispatch(updateItem(updatedItem))
+    },
+    removeItem: (id) => {
+      dispatch(removeItem(id))
     }
   }
 }

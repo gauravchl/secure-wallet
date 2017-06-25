@@ -9,14 +9,13 @@ class WalletItem extends React.Component {
   }
 
   render() {
-    let { item, onClickEdit, onClickRemove } = this.props;
+    let { item, onClickEdit } = this.props;
     return (
       <div style={styles.root}>
         <div style={styles.titleBar}>
           <span>{item.title}</span>
           <div>
             <FlatButton label='Edit' primary={true} onTouchTap={onClickEdit} />
-            <FlatButton label='Remove' primary={true} onTouchTap={onClickRemove}/>
           </div>
         </div>
 
@@ -52,7 +51,6 @@ class WalletItem extends React.Component {
 WalletItem.propTypes = {
   item: PropTypes.object,
   onClickEdit: PropTypes.func,
-  onClickRemove: PropTypes.func,
 }
 
 

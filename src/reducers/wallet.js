@@ -41,6 +41,14 @@ const handlers = {
 
     return { ...others, items:  [...items]}
   },
+  [actionTypes.REMOVE_ITEM]: (state, action) => {
+    let { items=[], ...others } = state;
+    let { id } = action;
+    let index = items.findIndex(item => item._id === id);
+    if (index < 0) return state;
+    items.splice(index, 1);
+    return { ...others, items:  [...items]};
+  },
 
   [actionTypes.DECRYPT]: (state, action) => {
     let { items, local={}} = state;

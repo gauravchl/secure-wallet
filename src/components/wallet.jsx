@@ -21,9 +21,10 @@ class Wallet extends React.Component {
     };
     this.renderDrawer = this.renderDrawer.bind(this);
     this.handleOnEditClick = this.handleOnEditClick.bind(this);
-    this.handleOnSaveClick = this.handleOnSaveClick.bind(this);
     this.handleOnAddBtnClick = this.handleOnAddBtnClick.bind(this);
+    this.handleOnSaveClick = this.handleOnSaveClick.bind(this);
     this.handleOnCreateClick = this.handleOnCreateClick.bind(this);
+    this.handleOnRemoveClick = this.handleOnRemoveClick.bind(this);
     this.handleOnCancelClick = this.handleOnCancelClick.bind(this);
   }
 
@@ -66,6 +67,11 @@ class Wallet extends React.Component {
   }
 
 
+  handleOnEditClick() {
+    this.setState({ showAddEdit: true });
+  }
+
+
   handleOnCreateClick(item) {
     let { createItem } = this.props;
     createItem(item);
@@ -78,8 +84,11 @@ class Wallet extends React.Component {
   }
 
 
-  handleOnEditClick() {
-    this.setState({ showAddEdit: true });
+  handleOnRemoveClick(id) {
+    let { removeItem } = this.props;
+    removeItem(id);
+    let { items } = this.props;
+    this.setState({ showAddEdit: false, currentItemId: items[0] && items[0]._id })
   }
 
 
@@ -105,6 +114,7 @@ class Wallet extends React.Component {
         <WalletItemAddEdit item={item}
           onClickCancel={this.handleOnCancelClick}
           onClickCreate={this.handleOnCreateClick}
+          onClickRemove={this.handleOnRemoveClick}
           onClickSave={this.handleOnSaveClick} />
       )
     } else {
