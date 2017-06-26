@@ -126,7 +126,6 @@ WalletItemAddEdit.propTypes = {
 const styles = {
   root: {
     height: 'calc(100% - 72px - 18px)',
-    marginLeft: '256px',
     padding: '0 24px',
     color: grey900,
     display: 'flex',
