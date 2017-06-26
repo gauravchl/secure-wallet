@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Radium from  'radium';
 import { grey200, grey300, grey900 } from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import Size from 'helper/responsive-size';
 
 class WalletItemAddEdit extends React.Component {
   constructor(props){
@@ -149,6 +151,9 @@ const styles = {
     name: {
       textTransform: 'capitalize',
       flex: '0 0 172px',
+      [Size.XXSM]: {
+        flex: '0 0 100px',
+      }
     },
     value: {
       fontWeight: '200'
@@ -163,4 +168,4 @@ const styles = {
   },
 
 }
-export default WalletItemAddEdit
+export default Radium(WalletItemAddEdit)

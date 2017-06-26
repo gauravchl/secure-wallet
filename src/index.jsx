@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import store from 'store.js'
+import store from 'store.js';
+import { StyleRoot } from 'radium';
 import { Provider, connect } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -28,12 +29,14 @@ class App extends React.Component {
     }
 
     return (
-      <MuiThemeProvider muiTheme={Theme}>
-        { loggedIn
-          ? <WalletContainer />
-          : <LoginContainer />
-        }
-      </MuiThemeProvider>
+      <StyleRoot>
+        <MuiThemeProvider muiTheme={Theme}>
+          { loggedIn
+            ? <WalletContainer />
+            : <LoginContainer />
+          }
+        </MuiThemeProvider>
+      </StyleRoot>
     )
   }
 }
