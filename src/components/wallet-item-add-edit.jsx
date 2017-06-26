@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Radium from  'radium';
+import Radium from 'radium';
 import { grey200, grey300, grey900 } from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -50,7 +50,7 @@ class WalletItemAddEdit extends React.Component {
           <span>{item && item.title || 'Create New'}</span>
         </div>
 
-        <div style={{ flex: '1', overflowY: 'scroll' }}>
+        <div style={styles.container}>
           <div style={styles.field}>
             <div style={styles.field.name}>title</div>
             <div style={styles.field.value}>
@@ -127,7 +127,7 @@ WalletItemAddEdit.propTypes = {
 
 const styles = {
   root: {
-    height: 'calc(100% - 72px - 18px)',
+    height: 'calc(100vh - 72px - 18px)',
     padding: '0 24px',
     color: grey900,
     display: 'flex',
@@ -144,6 +144,11 @@ const styles = {
     marginBottom: '32px',
     justifyContent: 'space-between',
   },
+  container: {
+    flex: '1',
+    overflowY: 'scroll',
+    paddingBottom: '72px',
+  },
   field: {
     display: 'flex',
     alignItems: 'center',
@@ -153,7 +158,7 @@ const styles = {
       flex: '0 0 172px',
       [Size.XXSM]: {
         flex: '0 0 100px',
-      }
+      },
     },
     value: {
       fontWeight: '200'

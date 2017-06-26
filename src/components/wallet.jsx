@@ -158,10 +158,10 @@ class Wallet extends React.Component {
 
     return (
       <div style={styles.root}>
-        <div style={styles.topBar}>
+        <div style={{ ...styles.topBar, justifyContent: drawerDocked ? '' : 'space-between' }}>
           { drawerDocked ? null : <FlatButton onTouchTap={this.openDrawer} style={styles.menuBtn} icon={<MenuIcon/>} /> }
           <Logo style={styles.topBar.logo} />
-          <FlatButton onTouchTap={logout} label='logout' style={{ marginLeft: 'auto' }} />
+          <FlatButton onTouchTap={logout} label='logout' style={{ marginLeft: drawerDocked ? 'auto' : '0px' }} />
         </div>
         {this.renderDrawer()}
         {this.renderWalletItem()}
