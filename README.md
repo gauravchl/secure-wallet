@@ -10,3 +10,4 @@ TODO -
 - New version alert, reload btn
 - Lighthouse optimization and list it inside pwaDirectory
 - Remove confirmation box
+- Backup & restore
