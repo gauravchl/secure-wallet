@@ -1,20 +1,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
-import { grey300, grey900 } from 'material-ui/styles/colors';
+import Clipboard from 'clipboard';
+import { grey300, grey600, grey900 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui/svg-icons/image/edit';
+import CopyIcon from 'material-ui/svg-icons/content/content-copy';
+import Snackbar from 'material-ui/Snackbar';
 import Size from 'helper/responsive-size';
 
 
 class WalletItem extends React.Component {
   constructor(props){
     super(props);
+    this.state = { snackMessage: '' };
+    this.setClipboard = this.setClipboard.bind(this);
+    this.unsetClipboard = this.unsetClipboard.bind(this);
+    this.showSnack = this.showSnack.bind(this);
+    this.handleSnackClose = this.handleSnackClose.bind(this);
+  }
+
+
+  componentDidMount() {
+    this.setClipboard();
+    this._isMounted = true;
+  }
+
+
+  componentWillUnmount() {
+    this.unsetClipboard();
+    this._isMounted = false;
+  }
+
+
+  setClipboard() {
+    this._clipboard = new Clipboard('.pwd-copy');
+    this._clipboard.on('success', (e) => {
+      this.showSnack('Password copied to clipboard');
+    });
+    this._clipboard.on('error', (e) => {
+      console.log(e);
+    })
+  }
+
+
+  unsetClipboard() {
+    this._clipboard.destroy()
+  }
+
+
+  showSnack(msg) {
+    this.setState({ snackMessage: msg })
+  }
+
+
+  handleSnackClose() {
+    this.setState({ snackMessage: '' });
   }
 
 
   render() {
     let { item, onClickEdit } = this.props;
+    let { snackMessage } = this.state;
     return (
       <div style={styles.root}>
         <div style={styles.titleBar}>
@@ -33,6 +81,13 @@ class WalletItem extends React.Component {
           <div style={styles.field}>
             <div style={styles.field.name}>password</div>
             <div style={{ ...styles.field.value, ...styles.passwordField }}>{item.data.password}</div>
+            { !item.data.password ? null :
+                <IconButton iconStyle={styles.copyBtn}
+                  tooltip='copy' className='pwd-copy'
+                  data-clipboard-text={item.data.password} >
+                  <CopyIcon/>
+                </IconButton>
+            }
           </div>
 
           <div style={styles.field}>
@@ -49,6 +104,11 @@ class WalletItem extends React.Component {
             <div style={{ ...styles.field.value, ...styles.notes }}>{item.data.notes}</div>
           </div>
         </div>
+        <Snackbar
+          open={Boolean(snackMessage)}
+          message={snackMessage}
+          autoHideDuration={4000}
+          onRequestClose={this.handleSnackClose}/>
       </div>
     )
   }
@@ -107,6 +167,11 @@ const styles = {
   },
   notes: {
     whiteSpace: 'pre-line',
+  },
+  copyBtn: {
+    width: '18px',
+    height: '18px',
+    color: grey600,
   }
 }
 export default Radium(WalletItem);

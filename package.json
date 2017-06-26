@@ -20,6 +20,7 @@
   "homepage": "https://github.com/gauravchl/secure-wallet#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "clipboard": "^1.7.1",
     "crypto-js": "^3.1.9-1",
     "material-ui": "^0.18.3",
     "prop-types": "^15.5.10",
