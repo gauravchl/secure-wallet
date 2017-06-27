@@ -1,18 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
-import { grey200, grey300, grey900 } from 'material-ui/styles/colors';
+import { grey200, grey300, grey600, grey900 } from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import KeyIcon from 'material-ui/svg-icons/communication/vpn-key';
 import Size from 'helper/responsive-size';
 import PasswordGenerator from 'components/password-generator.jsx';
 
 class WalletItemAddEdit extends React.Component {
   constructor(props){
     super(props);
+    this.state = { showPasswordGenerator: false };
     this.handleOnClickSave = this.handleOnClickSave.bind(this);
     this.handleOnClickRemove = this.handleOnClickRemove.bind(this);
+    this.setPassword = this.setPassword.bind(this);
+    this.togglePasswordGenerator = this.togglePasswordGenerator.bind(this);
+  }
+
+
+  togglePasswordGenerator() {
+    this.setState({ showPasswordGenerator: !this.state.showPasswordGenerator });
   }
 
 
@@ -42,8 +52,14 @@ class WalletItemAddEdit extends React.Component {
     onClickRemove(item._id);
   }
 
+  setPassword(password) {
+    this._tfPassword.getInputNode().value = password;
+    this._tfPassword.setState({ hasValue: true });
+  }
+
   render() {
     let { item, onClickCancel } = this.props;
+    let { showPasswordGenerator } = this.state;
     let isEdit = !!item;
     return (
       <div style={styles.root}>
@@ -71,12 +87,23 @@ class WalletItemAddEdit extends React.Component {
             </div>
           </div>
 
-          <div style={styles.field}>
-            <div style={styles.field.name}>password</div>
-            <div style={{ ...styles.field.value, ...styles.passwordField }}>
+          <div style={{ ...styles.field, alignItems: 'initial' }}>
+            <div style={{ ...styles.field.name, paddingTop: '18px' }}>password</div>
+            <div style={styles.field.value}>
               <TextField
                 ref={(ref) => this._tfPassword = ref}
+                type={ showPasswordGenerator ? 'text' : 'password' }
                 defaultValue={item && item.data.password} hintText='Add pasword' />
+              <IconButton
+                style={styles.btnTogglePwdGenerator}
+                tooltip='password generator'
+                tooltipPosition='top-right'
+                iconStyle={{ color: grey600 }}
+                onTouchTap={this.togglePasswordGenerator}>
+                <KeyIcon/>
+              </IconButton>
+
+              { showPasswordGenerator ? <PasswordGenerator onSet={this.setPassword} /> : null }
             </div>
           </div>
 
@@ -100,7 +127,6 @@ class WalletItemAddEdit extends React.Component {
             </div>
           </div>
         </div>
-        <PasswordGenerator />
 
         <div style={styles.actionContainer}>
           { isEdit
@@ -154,7 +180,7 @@ const styles = {
   field: {
     display: 'flex',
     alignItems: 'center',
-    height: '62px',
+    minHeight: '62px',
     name: {
       textTransform: 'capitalize',
       flex: '0 0 172px',
@@ -166,13 +192,13 @@ const styles = {
       fontWeight: '200'
     }
   },
-  passwordField: {
-    WebkitTextSecurity: 'disc',
-  },
   actionContainer: {
     borderTop: `solid 1px ${grey300}`,
     paddingTop: '12px',
   },
+  btnTogglePwdGenerator: {
+    color: grey600,
+  }
 
 }
 export default Radium(WalletItemAddEdit)
