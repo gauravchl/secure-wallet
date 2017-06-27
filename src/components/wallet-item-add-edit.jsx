@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import Size from 'helper/responsive-size';
+import PasswordGenerator from 'components/password-generator.jsx';
 
 class WalletItemAddEdit extends React.Component {
   constructor(props){
@@ -99,6 +100,7 @@ class WalletItemAddEdit extends React.Component {
             </div>
           </div>
         </div>
+        <PasswordGenerator />
 
         <div style={styles.actionContainer}>
           { isEdit
