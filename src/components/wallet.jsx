@@ -13,7 +13,7 @@ import MenuItem             from 'material-ui/MenuItem';
 import Logo              from 'components/logo.jsx';
 import WalletItem        from 'components/wallet-item.jsx';
 import WalletItemAddEdit from 'components/wallet-item-add-edit.jsx';
-import Size from 'helper/responsive-size';
+import { Size } from 'helper/responsive-size';
 
 class Wallet extends React.Component {
   constructor(props){
@@ -21,7 +21,7 @@ class Wallet extends React.Component {
     this.state = {
       currentItemId: null,
       showAddEdit: false,
-      drawerDocked: window.innerWidth > 840,
+      drawerDocked: window.innerWidth > Size.SM,
       drawerOpened: false,
     };
     this.renderDrawer = this.renderDrawer.bind(this);

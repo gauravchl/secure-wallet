@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui/svg-icons/image/edit';
 import CopyIcon from 'material-ui/svg-icons/content/content-copy';
 import Snackbar from 'material-ui/Snackbar';
-import Size from 'helper/responsive-size';
+import { Screen, Size } from 'helper/responsive-size';
 
 
 class WalletItem extends React.Component {
@@ -139,6 +139,11 @@ const styles = {
     height: '72px',
     marginBottom: '32px',
     justifyContent: 'space-between',
+    [Screen.SM]: {
+      height: '52px',
+      fontSize: '22px',
+      marginBottom: '12px',
+    }
   },
   container: {
     flex: '1',
@@ -154,7 +159,7 @@ const styles = {
     name: {
       textTransform: 'capitalize',
       flex: '0 0 172px',
-      [Size.XXSM]: {
+      [Screen.XXSM]: {
         flex: '0 0 100px',
       },
     },

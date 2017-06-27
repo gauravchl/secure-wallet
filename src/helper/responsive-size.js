@@ -1,10 +1,22 @@
+
+
 const Size = {
-  XLG: '@media screen and (max-width:1440px)',
-  LG: '@media screen and (max-width:1280px)',
-  MD: '@media screen and (max-width:960px)',
-  SM: '@media screen and (max-width:840px)',
-  XSM: '@media screen and (max-width:600px)',
-  XXSM: '@media screen and (max-width:480px)',
+  XLG: 1440,
+  LG: 1280,
+  MD: 960,
+  SM: 840,
+  XSM: 600,
+  XXSM: 480,
 }
 
-export default Size
+const Screen = {
+  XLG: `@media screen and (max-width:${Size.XLG}px)`,
+  LG: `@media screen and (max-width:${Size.LG}px)`,
+  MD: `@media screen and (max-width:${Size.MD}px)`,
+  SM: `@media screen and (max-width:${Size.SM}px)`,
+  XSM: `@media screen and (max-width:${Size.XSM}px)`,
+  XXSM: `@media screen and (max-width:${Size.XXSM}px)`,
+}
+
+export default { Screen, Size }
+export  { Screen, Size }

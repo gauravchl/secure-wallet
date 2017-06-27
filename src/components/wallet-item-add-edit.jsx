@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import KeyIcon from 'material-ui/svg-icons/communication/vpn-key';
-import Size from 'helper/responsive-size';
+import { Size, Screen } from 'helper/responsive-size';
 import PasswordGenerator from 'components/password-generator.jsx';
 
 class WalletItemAddEdit extends React.Component {
@@ -61,6 +61,7 @@ class WalletItemAddEdit extends React.Component {
     let { item, onClickCancel } = this.props;
     let { showPasswordGenerator } = this.state;
     let isEdit = !!item;
+    let showFloatLabel = window.innerWidth < Size.XSM
     return (
       <div style={styles.root}>
         <div style={styles.titleBar}>
@@ -69,35 +70,44 @@ class WalletItemAddEdit extends React.Component {
 
         <div style={styles.container}>
           <div style={styles.field}>
-            <div style={styles.field.name}>title</div>
-            <div style={styles.field.value}>
+            <div style={styles.field.leftCol}>title</div>
+            <div style={styles.field.rightCol}>
               <TextField
+                style={styles.textField}
                 ref={(ref) => this._tfTitle = ref}
                 inputStyle={{ textTransform: 'capitalize' }}
-                defaultValue={item && item.title} hintText='Add title'/>
+                defaultValue={item && item.title}
+                floatingLabelText={showFloatLabel ? 'Title' : null }
+                hintText='Add title'/>
             </div>
           </div>
 
           <div style={styles.field}>
-            <div style={styles.field.name}>username</div>
-            <div style={styles.field.value}>
+            <div style={styles.field.leftCol}>username</div>
+            <div style={styles.field.rightCol}>
               <TextField
+                style={styles.textField}
                 ref={(ref) => this._tfUsername = ref}
-                defaultValue={item && item.data.username} hintText='username or email'/>
+                defaultValue={item && item.data.username}
+                floatingLabelText={showFloatLabel ? 'username or email' : null }
+                hintText='username or email'/>
             </div>
           </div>
 
-          <div style={{ ...styles.field, alignItems: 'initial' }}>
-            <div style={{ ...styles.field.name, paddingTop: '18px' }}>password</div>
-            <div style={styles.field.value}>
+          <div style={styles.field}>
+            <div style={styles.field.leftCol}>password</div>
+            <div style={styles.field.rightCol}>
               <TextField
+                style={{ ...styles.textField, width: 'calc(100% - 48px)' }}
                 ref={(ref) => this._tfPassword = ref}
                 type={ showPasswordGenerator ? 'text' : 'password' }
-                defaultValue={item && item.data.password} hintText='Add pasword' />
+                defaultValue={item && item.data.password}
+                floatingLabelText={showFloatLabel ? 'Pasword' : null }
+                hintText='Add pasword' />
               <IconButton
                 style={styles.btnTogglePwdGenerator}
                 tooltip='password generator'
-                tooltipPosition='top-right'
+                tooltipPosition='top-left'
                 iconStyle={{ color: grey600 }}
                 onTouchTap={this.togglePasswordGenerator}>
                 <KeyIcon/>
@@ -108,21 +118,27 @@ class WalletItemAddEdit extends React.Component {
           </div>
 
           <div style={styles.field}>
-            <div style={styles.field.name}>website</div>
-            <div style={{ ...styles.field.value, ...styles.website }}>
+            <div style={styles.field.leftCol}>website</div>
+            <div style={{ ...styles.field.rightCol, ...styles.website }}>
               <TextField
+                style={styles.textField}
                 ref={(ref) => this._tfWebsite = ref}
-                defaultValue={item && item.data.website} hintText='Add website link' />
+                defaultValue={item && item.data.website}
+                floatingLabelText={showFloatLabel ? 'Website' : null }
+                hintText='Add website link' />
             </div>
           </div>
 
-          <div style={{ ...styles.field, alignItems: 'initial', height: 'auto' }}>
-            <div style={{ ...styles.field.name, marginTop: '12px' }}>notes</div>
-            <div style={styles.field.value}>
+          <div style={styles.field}>
+            <div style={styles.field.leftCol}>notes</div>
+            <div style={styles.field.rightCol}>
               <TextField
+                style={styles.textField}
                 ref={(ref) => this._tfNotes = ref}
                 defaultValue={item && item.data.notes} multiLine={true} rows={4}
-                id='notes' hintText='Some notes'
+                id='notes'
+                floatingLabelText={showFloatLabel ? 'Notes' : null }
+                hintText='Notes'
                 hintStyle={{ top: '12px' }}/>
             </div>
           </div>
@@ -171,6 +187,11 @@ const styles = {
     height: '72px',
     marginBottom: '32px',
     justifyContent: 'space-between',
+    [Screen.SM]: {
+      height: '52px',
+      fontSize: '22px',
+      marginBottom: '12px',
+    }
   },
   container: {
     flex: '1',
@@ -179,18 +200,26 @@ const styles = {
   },
   field: {
     display: 'flex',
-    alignItems: 'center',
     minHeight: '62px',
-    name: {
+    leftCol: {
       textTransform: 'capitalize',
       flex: '0 0 172px',
-      [Size.XXSM]: {
-        flex: '0 0 100px',
+      paddingTop: '18px',
+      [Screen.XSM]: {
+        display: 'none',
       },
     },
-    value: {
-      fontWeight: '200'
+    rightCol: {
+      fontWeight: '200',
+      width: '100%',
+      maxWidth: '372px',
+      [Screen.XSM]: {
+        maxWidth: 'initial',
+      }
     }
+  },
+  textField: {
+    width: '100%'
   },
   actionContainer: {
     borderTop: `solid 1px ${grey300}`,
@@ -198,7 +227,7 @@ const styles = {
   },
   btnTogglePwdGenerator: {
     color: grey600,
-  }
+  },
 
 }
 export default Radium(WalletItemAddEdit)
