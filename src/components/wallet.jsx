@@ -60,11 +60,19 @@ class Wallet extends React.Component {
           style={style}
           innerDivStyle={styles.drawerItem}
           onTouchTap={(e) => this.handleClickOnDrawerItem(e, item._id)}
-          key={index}>
+          key={index + 1}>
           {item.title}
         </MenuItem>
       )
     })
+
+    if (!drawerDocked) {
+      drawerItems.unshift(
+        <div style={styles.drawerTitle} key={0}>
+          Wallet Items
+        </div>
+      )
+    }
 
     return (
       <Drawer
@@ -218,6 +226,16 @@ const styles = {
     borderTop: 'solid 1px #E0E0E0',
     paddingTop: '12px',
     paddingBottom: '68px',
+  },
+  drawerTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    height: '56px',
+    fontSize: '22px',
+    padding: '0 16px 12px',
+    fontWeight: '100',
+    borderBottom: `solid 1px ${grey200}`,
+    boxSizing: 'border-box',
   },
   drawerItem: {
     textTransform: 'capitalize',
