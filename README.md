@@ -19,7 +19,7 @@ App: https://gauravchl.github.io/secure-wallet/
 - [crypto-js](https://github.com/brix/crypto-js), [bcryptjs](https://github.com/dcodeIO/bcrypt.js) for data security
 
 
-**TODO **
+**TODO**
 - Toggle button to show password
 - New version alert, reload btn
 - Show confirmation box before removing item
