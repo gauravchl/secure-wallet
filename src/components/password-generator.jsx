@@ -118,9 +118,11 @@ const styles = {
   root: {
     maxWidth: '300px',
     width: '100%',
+    boxSizing: 'border-box',
     padding: '12px',
     background: grey100,
     border: `solid 1px ${grey400}`,
+    margin: '12px 0',
   },
   pwdContainer: {
     textAlign: 'center',

@@ -164,7 +164,8 @@ const styles = {
       },
     },
     value: {
-      fontWeight: '200'
+      fontWeight: '200',
+      wordBreak: 'break-all',
     }
   },
   passwordField: {

@@ -220,7 +220,7 @@ const styles = {
   },
   menuBtn: {
     minWidth: '42px',
-    marginRight: '12px',
+    marginRight: '38px',
   }
 
 }
