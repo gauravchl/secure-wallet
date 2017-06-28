@@ -4,6 +4,7 @@ A PWA for password manager, works offline, uses local storage to store all data,
 
 App: https://gauravchl.github.io/secure-wallet/
 
+![artboard 2](https://user-images.githubusercontent.com/3471415/27639136-faf693a8-5c32-11e7-8189-6dccf98007ee.png)
 
 **Specs**
 
