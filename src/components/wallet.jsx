@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import Radium    from  'radium';
 
 import ContentAdd           from 'material-ui/svg-icons/content/add';
-import MenuIcon           from 'material-ui/svg-icons/navigation/menu';
-import { grey50, grey200 }  from 'material-ui/styles/colors';
+import MenuIcon             from 'material-ui/svg-icons/navigation/menu';
 import FlatButton           from 'material-ui/FlatButton';
 import Drawer               from 'material-ui/Drawer';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import MenuItem             from 'material-ui/MenuItem';
+import { grey50, grey200, grey400 }  from 'material-ui/styles/colors';
 
 import Logo              from 'components/logo.jsx';
 import WalletItem        from 'components/wallet-item.jsx';
 import WalletItemAddEdit from 'components/wallet-item-add-edit.jsx';
-import { Size } from 'helper/responsive-size';
+import { Size }          from 'helper/responsive-size';
 
 class Wallet extends React.Component {
   constructor(props){
@@ -129,9 +129,16 @@ class Wallet extends React.Component {
     let { items=[]} = this.props;
     let { currentItemId, showAddEdit, drawerDocked } = this.state;
     let item = items.find(item => item._id === currentItemId)
-    if (!item && !showAddEdit) return null; // TODO - add  intro section here, show how to get started
-
     let containerStyle = drawerDocked ? { marginLeft: '256px' } : {}
+
+    if (!item && !showAddEdit) {
+      return (
+        <div style={containerStyle}>
+          <p style={styles.noItem}>No items in your wallet, to cerate new click on the add button below.</p>
+        </div>
+      )
+    }
+
     if (showAddEdit) {
       return (
         <div style={containerStyle}>
@@ -193,7 +200,6 @@ const styles = {
     bottom: '12px',
     right: '12px',
   },
-
   topBar: {
     borderBottom: 'solid 1px #E0E0E0',
     padding: '0 12px',
@@ -221,6 +227,12 @@ const styles = {
   menuBtn: {
     minWidth: '42px',
     marginRight: '38px',
+  },
+  noItem: {
+    fontSize: '4vw',
+    color: grey400,
+    fontWeight: '100',
+    padding: '22px',
   }
 
 }
