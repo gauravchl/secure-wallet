@@ -27,3 +27,5 @@ App: https://gauravchl.github.io/secure-wallet/
 - Backup & restore
 - Dropbox + Google Drive sync
 - Direct/Quick Copy(master key + separator + title) without login.
+- Add help guide
+- Add auto logout(after 5 min)
