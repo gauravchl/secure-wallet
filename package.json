@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -p",
-    "watch": "webpack --watch --progress"
+    "watch": "webpack --watch --progress",
+    "analyze": "source-map-explorer main.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "redux-devtools": "^3.4.0",
+    "source-map-explorer": "^1.3.3",
     "webpack": "^2.6.1"
   }
 }

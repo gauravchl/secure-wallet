@@ -31,7 +31,7 @@ config = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
   ],
   resolve: {
     modules: [ SRC_DIR, path.resolve('./node_modules') ]
