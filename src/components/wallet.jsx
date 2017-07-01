@@ -19,8 +19,8 @@ class Wallet extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      currentItemId: null,
-      showAddEdit: false,
+      showAdd: false,
+      showEdit: false,
       drawerDocked: window.innerWidth > Size.SM,
       drawerOpened: false,
     };
@@ -37,9 +37,8 @@ class Wallet extends React.Component {
 
 
   componentWillMount() {
-    let { items=[]} = this.props;
-    if (items && items.length) this.setState({ currentItemId: items[0]._id });
-    else this.setState({ showAddEdit: true })
+    let { items } = this.props;
+    if (!items || !items.length) this.setState({ showAdd: true })
   }
 
 
@@ -52,10 +51,10 @@ class Wallet extends React.Component {
   }
 
   renderDrawer() {
-    let { items=[]} = this.props;
-    let { currentItemId, drawerDocked, drawerOpened } = this.state;
+    let { items=[], selectedItemId } = this.props;
+    let { drawerDocked, drawerOpened } = this.state;
     let drawerItems = items.map((item, index) => {
-      let style = item._id ===  currentItemId ? { backgroundColor: grey200 } : null
+      let style = item._id ===  selectedItemId ? { backgroundColor: grey200 } : null
       return (
         <MenuItem
           style={style}
@@ -88,62 +87,56 @@ class Wallet extends React.Component {
 
 
   handleClickOnDrawerItem(e, itemId) {
-    this.setState({ currentItemId: itemId, showAddEdit: false, drawerOpened: false })
+    this.setState({ showAdd: false, showEdit: false, drawerOpened: false })
+    this.props.selectItem(itemId);
   }
 
 
   handleOnAddBtnClick() {
-    this.setState({ showAddEdit: true, currentItemId: null });
+    this.setState({ showAdd: true, showEdit: false });
   }
 
 
   handleOnEditClick() {
-    this.setState({ showAddEdit: true });
+    this.setState({ showEdit: true, showAdd: false });
   }
 
 
   handleOnCreateClick(item) {
     let { createItem } = this.props;
     createItem(item);
-    this.setState({ showAddEdit: false }, _ => {
-      // HACK - To show lastly created item
-      // Implement proper redux action
-      let { items } = this.props;
-      this.setState({ currentItemId: items[0] && items[0]._id })
-    });
+    this.setState({ showAdd: false, showEdit: false });
   }
 
 
   handleOnRemoveClick(id) {
     let { removeItem } = this.props;
     removeItem(id);
-    let { items } = this.props;
-    this.setState({ showAddEdit: false, currentItemId: items[0] && items[0]._id })
+    this.setState({ showAdd: false, showEdit: false });
   }
 
 
   handleOnSaveClick(updatedItem) {
     let { updateItem } = this.props;
     updateItem(updatedItem);
-    this.setState({ showAddEdit: false });
+    this.setState({ showEdit: false, showAdd: false });
   }
 
 
   handleOnCancelClick() {
-    this.setState({ showAddEdit: false });
+    this.setState({ showAdd: false, showEdit: false });
   }
 
 
   renderWalletItem() {
-    let { items=[]} = this.props;
-    let { currentItemId, showAddEdit, drawerDocked } = this.state;
-    let item = items.find(item => item._id === currentItemId)
+    let { items=[], selectedItemId } = this.props;
+    let { showAdd, showEdit, drawerDocked } = this.state;
+    let item = items.find(item => item._id === selectedItemId)
     let containerStyle = drawerDocked ? { marginLeft: '256px' } : {}
-
-    if (showAddEdit) {
+    if (showAdd || showEdit) {
       return (
         <div style={containerStyle}>
-          <WalletItemAddEdit item={item}
+          <WalletItemAddEdit item={showEdit ? item : null}
             onClickCancel={this.handleOnCancelClick}
             onClickCreate={this.handleOnCreateClick}
             onClickRemove={this.handleOnRemoveClick}
@@ -151,6 +144,7 @@ class Wallet extends React.Component {
         </div>
       )
     } else {
+      if (!item) return null;
       return (
         <div style={containerStyle}>
           <WalletItem item={item} onClickEdit={this.handleOnEditClick}/>
@@ -162,7 +156,7 @@ class Wallet extends React.Component {
 
   render() {
     let { logout, items=[]} = this.props;
-    let { showAddEdit, drawerDocked } = this.state;
+    let { showAdd, showEdit, drawerDocked } = this.state;
 
     return (
       <div style={styles.root}>
@@ -173,7 +167,7 @@ class Wallet extends React.Component {
         </div>
         {this.renderDrawer()}
         {this.renderWalletItem()}
-        { showAddEdit ? null :
+        { showAdd || showEdit ? null :
             <FloatingActionButton style={styles.addBtn} onTouchTap={this.handleOnAddBtnClick}>
               <ContentAdd />
             </FloatingActionButton>

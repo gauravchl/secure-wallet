@@ -21,7 +21,14 @@ const handlers = {
         website: item.data && item.data.website,
       }
     }
-    let newState = { ...others, items:  [ newItem, ...items ]}
+    let newState = {
+      ...others,
+      items:  [ newItem, ...items ],
+      local: {
+        ...state.local,
+        selectedItemId: newItem._id,
+      }
+    }
     return newState;
   },
 
@@ -47,7 +54,16 @@ const handlers = {
     let index = items.findIndex(item => item._id === id);
     if (index < 0) return state;
     items.splice(index, 1);
-    return { ...others, items:  [...items]};
+
+    let newState = {
+      ...others,
+      items:  [...items],
+      local: {
+        ...state.local,
+        selectedItemId: items.length && items[0]._id
+      }
+    };
+    return newState
   },
 
   [actionTypes.DECRYPT]: (state, action) => {
@@ -58,6 +74,7 @@ const handlers = {
     return { ...state, items: data, local: {
         ...state.local,
         decrypted: true,
+        selectedItemId: data && data.length && data[0]._id,
       }
     }
   },
@@ -68,6 +85,14 @@ const handlers = {
     return { ...state, items: data, local: {
         ...state.local,
         decrypted: false,
+      }
+    }
+  },
+  [actionTypes.SELECT_ITEM]: (state, action) => {
+    let { id } = action;
+    return { ...state, local: {
+        ...state.local,
+        selectedItemId: id,
       }
     }
   },

@@ -4,6 +4,7 @@ const actionTypes = {
   REMOVE_ITEM: 'REMOVE_ITEM',
   DECRYPT: 'DECRYPT',
   ENCRYPT: 'ENCRYPT',
+  SELECT_ITEM: 'SELECT_ITEM',
 }
 
 export { actionTypes };
@@ -20,10 +21,15 @@ export function removeItem(id) {
   return { type: actionTypes.REMOVE_ITEM, id }
 }
 
+
 export function decryptItems() {
   return { type: actionTypes.DECRYPT }
 }
 
 export function encryptItems() {
   return { type: actionTypes.ENCRYPT }
+}
+
+export function selectItem(id) {
+  return { type: actionTypes.SELECT_ITEM, id }
 }
