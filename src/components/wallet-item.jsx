@@ -61,7 +61,7 @@ class WalletItem extends React.Component {
 
 
   render() {
-    let { item, onClickEdit } = this.props;
+    let { item={ data :{}}, onClickEdit } = this.props;
     let { snackMessage } = this.state;
     return (
       <div style={styles.root}>

@@ -39,6 +39,7 @@ class Wallet extends React.Component {
   componentWillMount() {
     let { items=[]} = this.props;
     if (items && items.length) this.setState({ currentItemId: items[0]._id });
+    else this.setState({ showAddEdit: true })
   }
 
 
@@ -138,14 +139,6 @@ class Wallet extends React.Component {
     let { currentItemId, showAddEdit, drawerDocked } = this.state;
     let item = items.find(item => item._id === currentItemId)
     let containerStyle = drawerDocked ? { marginLeft: '256px' } : {}
-
-    if (!item && !showAddEdit) {
-      return (
-        <div style={containerStyle}>
-          <p style={styles.noItem}>No items in your wallet, to cerate new click on the add button below.</p>
-        </div>
-      )
-    }
 
     if (showAddEdit) {
       return (

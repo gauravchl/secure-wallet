@@ -65,7 +65,7 @@ class WalletItemAddEdit extends React.Component {
     return (
       <div style={styles.root}>
         <div style={styles.titleBar}>
-          <span>{item && item.title || 'Create New'}</span>
+          <span>{item && item.title || 'Add New Item'}</span>
         </div>
 
         <div style={styles.container}>

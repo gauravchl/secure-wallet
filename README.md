@@ -29,6 +29,5 @@ App: https://gauravchl.github.io/secure-wallet/
 - Direct/Quick Copy(master key + separator + title) without login.
 - Add help guide
 - Add auto logout(after 5 min)
-- Create new wallet item process should just automatically start on first login.
 - Password generator modal should be positioned absolutely, it is strange to see the form fields below move down.
 - Update logo(try wallet and circular combination lock)
