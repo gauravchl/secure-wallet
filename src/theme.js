@@ -3,7 +3,7 @@ import * as Colors from 'material-ui/styles/colors';
 
 const muiTheme =  getMuiTheme({
   palette: {
-    primary1Color: Colors.grey700,
+    primary1Color: Colors.blue600,
     primary2Color: Colors.cyan400,
     primary3Color: Colors.grey800,
     accent1Color: Colors.lightBlue400,

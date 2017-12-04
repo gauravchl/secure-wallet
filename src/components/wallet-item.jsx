@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
 import Clipboard from 'clipboard';
-import { grey300, grey600, grey900 } from 'material-ui/styles/colors';
+import { grey50, grey300, grey600, grey900 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui/svg-icons/image/edit';
@@ -123,11 +123,18 @@ WalletItem.propTypes = {
 
 const styles = {
   root: {
-    height: 'calc(100vh - 72px - 18px)',
     padding: '0 24px',
+    background: grey50,
+    margin: '22px 12px',
+    borderRadius: '2px',
+    boxShadow: '1px 2px 6px #0000009e',
     color: grey900,
     display: 'flex',
     flexDirection: 'column',
+    width: '350px',
+    float: 'left',
+    boxSizing: 'border-box',
+
   },
   titleBar: {
     borderBottom: `solid 1px ${grey300}`,
